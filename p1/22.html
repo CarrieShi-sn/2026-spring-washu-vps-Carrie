@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nami Ramen</title>
+    <link rel="icon" type="image/jpg" href="logo_pink.jpg">
+    <style>
+      body {
+        font-family: "Helvetica", Monospaced;
+        font-size:20px;
+        margin: 0px;
+
+        background-image: url("ramen.jpg");
+        background-size: cover;      /* fills the area */
+        background-position: center; /* centers image */
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-color: rgba(184, 148, 122, 0.8); /* fallback color */
+        background-blend-mode: lighten;
+        height: 400px;
+    }
+      .featured-items {
+        color: rgb(190, 36, 36);
+        display: grid;
+        padding: 30px;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+
+    #starters {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1em;
+        padding: 1em 0;
+        color: rgb(0, 0, 0);
+    }
+    #salads {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 3em;
+        padding: 1em 0;
+        color: rgb(0, 0, 0);
+    }
+    #ramen-noodles {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 1em;
+        padding: 1em 0;
+        color: rgb(0, 0, 0);
+    }
+    #rice-plates{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3em;
+        padding: 1em 0;
+    }
+    #kids{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    p{
+        text-align: center;
+    }
+    h1{
+        text-align: center;
+    }
+    h6{
+        text-align: center;
+        color: blue;
+        
+    }
+     .ramen3 {
+        position: absolute;
+        top: 20px;
+        right:20px;
+     }
+     a{
+        transition:1s;
+        font-size: 20px;
+     }
+     a:hover{
+        font-size: 48px;
+        color: crimson;
+     }
+     .dish {
+    text-align: center;
+    margin-bottom: 1.2em;
+    }
+
+    .dish-title {
+    cursor: pointer;
+    font-weight: normal;
+    }
+
+/* hidden by default */
+.dish-details {
+    font-size: 0.9em;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(-10px);
+  transition: 
+    opacity 0.9s ease,
+    transform 0.9s ease,
+    max-height 0.9s ease;
+
+    /* invisible box */
+  padding: 0 4em;
+  margin: 0 auto;
+  width: 80%;
+  box-sizing: border-box;
+}
+
+/* reveal on hover */
+.dish:hover .dish-details {
+  opacity: 0.9;
+  max-height: 200px; /* big enough to fit content */
+  transform: translateY(0);
+}
+.dish:hover .dish-title{
+    color: crimson;
+    font-weight: normal;
+    transition: 1s;
+}
+
+.menu-tabs {
+  position: fixed;
+  right: 540px;
+  top: 60%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12em;
+  z-index: 10;
+}
+
+.menu-tab {
+  text-decoration: none;
+  color:blue;
+  font-size: 24px;
+  letter-spacing: 0.1em;
+
+  /* rotation */
+  transform: rotate(-90deg);
+  transform-origin: left center;
+}
+
+
+    </style>
+
+<img src="logo_pink.jpg" width="100" height="100" class="ramen3">
+
+
+<h1 id="nami-ramen">NAMI RAMEN</h1>
+<h6 id="st.louis">ST.LOUIS</h6>
+<blockquote>
+<p>Location:<br>
+<strong>278 Skinker Blvd, MO 63130</strong>
+<br>
+<br>
+Operating on:<br>
+Sunday - Thursday / 11am - 9pm,<br>
+Friday - Saturday / 11am - 10pm
+<br>
+<br>
+Contact:<br>
+<strong>(314) 833-6264</strong>
+<br>
+<br>
+Order online at:<br>
+<a href="https://namiramen.com/">https://namiramen.com/</a>
+<br><br>
+Social Media:<br>
+<a href="https://www.facebook.com/namiramen/">FACEBOOK</a></p>
+
+</blockquote>
+
+<br><br>
+<section id="featured item" style="text-align: center;"><strong>Featured Items</strong></p>
+<ul>
+    <br>
+
+<div class="dish">
+  <div class="dish-title">
+    Signature Tonkotsu, <strong>$17.00</strong>
+  </div>
+
+  <div class="dish-details">
+    <p>A 24-hour creamy pork broth, seasoned with shio tare.</p>
+    <p><em>Ingredients: braised tender pork / minced onion / woodear mushroom / bamboo shoots (menma)</em></p>
+  </div>
+</div>
+
+<div class="dish">
+  <div class="dish-title">
+    Chicken Katsu Ramen, <strong>$17.00</strong>
+  </div>
+
+  <div class="dish-details">
+    <p>A 24-hour creamy pork broth, seasoned with shio tare.</p>
+    <p><em>Ingredients: braised tender pork / minced onion / woodear mushroom / bamboo shoots (menma)</em></p>
+  </div>
+</div>
+
+<div class="dish">
+  <div class="dish-title">
+    Veggie Ramen <strong>$16.00</strong>
+  </div>
+
+  <div class="dish-details">
+    <p>Succulent crispy japanese style fried chicken cutlet with our flavorful signature Tonkotsu broth.</p>
+    <p><em>Ingredients: fried chicken cutlet / minced onion /woodear mushrooms</em></p>
+    
+  </div>
+</div>
+
+</ul>
+
+<br>
+
+Explore our menu:<br><br>
+<div class="menu-tabs">
+  <a href="22-starters.html" class="menu-tab starters">STARTERS</a>
+  <a href="22-ramen.html" class="menu-tab ramen">RAMEN</a>
+  <a href="22-drinks.html" class="menu-tab drinks">DRINKS</a>
+</div>
+
+</section>
+
+<br>

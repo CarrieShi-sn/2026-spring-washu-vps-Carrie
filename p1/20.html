@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>なみラーメン - Nami Ramen Menu</title>
+<style>
+  /* Body and background */
+  body {
+      font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+      background-color: #fff4e6; /* soft cream */
+      color: #1a1a1a;
+      margin: 0;
+      padding: 20px;
+  }
+
+  h1 {
+      text-align: center;
+      font-size: 48px;
+      color: #aa0c19; /* vibrant red accent */
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      font-family: "Verdana", sans-serif;
+  }
+
+  hr {
+      height: 2px;
+      background: linear-gradient(to right, #f1faee, #e63946, #f1faee);
+      margin: 30px 0;
+  }
+
+  /* Info section */
+  blockquote {
+      background-color: #ffffff;
+      padding: 20px;
+      border-left: 6px solid #cd1121;
+      margin: 0 auto 40px auto;
+      max-width: 900px;
+      font-size: 16px;
+      line-height: 1.6;
+      border-radius: 160px;
+  }
+
+  blockquote a {
+      color: #e63946;
+      text-decoration: none;
+      font-weight: bold;
+  }
+
+  blockquote a:hover {
+      text-decoration: underline;
+  }
+
+  /* Photo placeholders */
+  .photo-placeholder {
+      width: 100%;
+      max-width: 900px;
+      height: 200px;
+      background-color: #a8dadc;
+      margin: 20px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #1a1a1a;
+      font-style: italic;
+      font-weight: bold;
+      border-radius: 12px;
+      font-size: 20px;
+  }
+
+  /* Menu flex layout */
+  .menu-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+  }
+
+  .menu-column {
+      flex: 1 1 280px;
+      background-color: #fefae0;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      min-width: 250px;
+  }
+
+  .menu-column h4 {
+      text-align: center;
+      color: #e76f51; /* reddish-orange for Japanese style */
+      margin-bottom: 15px;
+      font-size: 22px;
+      border-bottom: 2px solid #e63946;
+      padding-bottom: 5px;
+  }
+
+  .menu-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  }
+
+  .menu-column li {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed #e63946;
+      font-size: 16px;
+      font-weight: 500;
+  }
+
+  .menu-column li:last-child {
+      border-bottom: none;
+  }
+
+  .menu-column .price {
+      color: #e63946;
+      font-weight: bold;
+  }
+
+  /* Japanese text style */
+  .japanese {
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic Pro", sans-serif;
+      color: #1a1a1a;
+      font-weight: bold;
+      font-size: 14px;
+      margin-left: 5px;
+  }
+
+  /* Footer info */
+  .info {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #1a1a1a;
+  }
+
+  .info a {
+      color: #e63946;
+      text-decoration: none;
+      font-weight: bold;
+  }
+
+  .info a:hover {
+      text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+      .menu-column {
+          flex: 1 1 100%;
+      }
+  }
+</style>
+</head>
+<body>
+
+<h1>なみラーメン<br>Nami Ramen</h1>
+<hr>
+
+<blockquote>
+<p>Location:<br>
+46 N Central Ave, Clayton, MO 63105
+<br><br>
+Operating Hours:<br>
+Sunday - Thursday / 11am - 9pm<br>
+Friday - Saturday / 11am - 10pm
+<br><br>
+Contact:<br>
+(314) 833-6264
+<br><br>
+Order online at:<br>
+<a href="https://namiramen.com/">https://namiramen.com/</a></p>
+</blockquote>
+
+<!-- Photo placeholders -->
+<div class="photo-placeholder">🍜 写真 1 - Featured Dish</div>
+<div class="photo-placeholder">🏮 写真 2 - Restaurant Interior</div>
+<div class="photo-placeholder">👨‍🍳 写真 3 - Chef / Signature Dish</div>
+
+<!-- Menu columns -->
+<div class="menu-section">
+
+  <!-- Featured Items -->
+  <div class="menu-column">
+      <h4>Featured Items <span class="japanese">おすすめ</span></h4>
+      <ul>
+          <li><span>Nami Signature Tonkotsu <span class="japanese">なみ特製豚骨ラーメン</span></span><span class="price">$17.00</span></li>
+          <li><span>Chicken Katsu Ramen <span class="japanese">チキンカツラーメン</span></span><span class="price">$17.00</span></li>
+          <li><span>Veggie Ramen <span class="japanese">野菜ラーメン</span></span><span class="price">$16.00</span></li>
+      </ul>
+  </div>
+
+  <!-- Starters -->
+  <div class="menu-column">
+      <h4>Starters <span class="japanese">前菜</span></h4>
+      <ul>
+          <li><span>Karrage Chicken <span class="japanese">唐揚げチキン</span></span><span class="price">$8.50</span></li>
+          <li><span>Spam Musubi <span class="japanese">スパムおにぎり</span></span><span class="price">$3.95</span></li>
+          <li><span>Takoyaki <span class="japanese">たこ焼き</span></span><span class="price">$7.00</span></li>
+          <li><span>Fried Calamari <span class="japanese">イカフライ</span></span><span class="price">$8.50</span></li>
+          <li><span>Honey Togarashi Chicken Wings <span class="japanese">ハニートガラシチキンウィング</span></span><span class="price">$9.99</span></li>
+          <li><span>Edamame <span class="japanese">枝豆</span></span><span class="price">$4.50</span></li>
+          <li><span>Gyoza <span class="japanese">餃子</span></span><span class="price">$7.99</span></li>
+          <li><span>Vegetable Spring Rolls <span class="japanese">野菜春巻き</span></span><span class="price">$7.99</span></li>
+          <li><span>Hiyayakko (cold tofu) <span class="japanese">冷奴</span></span><span class="price">$6.99</span></li>
+          <li><span>Agedashi Tofu <span class="japanese">揚げ出し豆腐</span></span><span class="price">$8.99</span></li>
+          <li><span>Shumai (6) <span class="japanese">焼売</span></span><span class="price">$7.99</span></li>
+          <li><span>Bao <span class="japanese">包</span></span><span class="price">$4.00 each</span></li>
+      </ul>
+  </div>
+
+  <!-- Ramen & Noodles -->
+  <div class="menu-column">
+      <h4>Ramen & Noodles <span class="japanese">ラーメン & 麺</span></h4>
+      <ul>
+          <li><span>Nami Signature Tonkotsu <span class="japanese">なみ特製豚骨</span></span><span class="price">$14.50</span></li>
+          <li><span>Roasted Black Garlic Tonkotsu <span class="japanese">黒ニンニク豚骨</span></span><span class="price">$15.00</span></li>
+          <li><span>Rise & Shine Ramen <span class="japanese">ライズ & シャイン</span></span><span class="price">$16.00</span></li>
+          <li><span>Ebi Ten Ramen (Tempura) <span class="japanese">海老天ラーメン</span></span><span class="price">$16.00</span></li>
+          <li><span>Jigoku Ramen <span class="japanese">地獄ラーメン</span></span><span class="price">$15.00</span></li>
+          <li><span>Curry Laksa <span class="japanese">カレーラクサ</span></span><span class="price">$15.00</span></li>
+          <li><span>Veggie Ramen <span class="japanese">野菜ラーメン</span></span><span class="price">$13.50</span></li>
+          <li><span>Gyuniku Ramen (Braised Beef) <span class="japanese">牛肉ラーメン</span></span><span class="price">$15.00</span></li>
+          <li><span>Chicken Katsu Ramen <span class="japanese">チキンカツラーメン</span></span><span class="price">$15.00</span></li>
+          <li><span>Grilled Chicken Ramen <span class="japanese">焼きチキンラーメン</span></span><span class="price">$15.00</span></li>
+          <li><span>Lemongrass Chicken Yakisoba <span class="japanese">レモングラス焼きそば</span></span><span class="price">$13.00</span></li>
+          <li><span>Show me, Shoyu Ramen <span class="japanese">醤油ラーメン</span></span><span class="price">$14.50</span></li>
+          <li><span>Volcano Ramen <span class="japanese">火山ラーメン</span></span><span class="price">$14.10</span></li>
+          <li><span>Sapporo Miso Ramen <span class="japanese">札幌味噌ラーメン</span></span><span class="price">$16.00</span></li>
+      </ul>
+  </div>
+
+  <!-- Salads & Rice Plates -->
+  <div class="menu-column">
+      <h4>Salads & Rice Plates <span class="japanese">サラダ & ご飯</span></h4>
+      <ul>
+          <li><span>Kale Salad <span class="japanese">ケールサラダ</span></span><span class="price">$9.50</span></li>
+          <li><span>Octopus Salad <span class="japanese">タコサラダ</span></span><span class="price">$10.50</span></li>
+          <li><span>Seasonal Salad <span class="japanese">季節のサラダ</span></span><span class="price">$8.00</span></li>
+          <li><span>Honey Miso Glazed Salmon Salad <span class="japanese">ハニ味噌サーモンサラダ</span></span><span class="price">$16.00</span></li>
+          <li><span>Fried Rice <span class="japanese">チャーハン</span></span></li>
+          <li><span>Signature Rice Plate <span class="japanese">シグネチャーライスプレート</span></span></li>
+      </ul>
+  </div>
+
+  <!-- Kids & Drinks -->
+  <div class="menu-column">
+      <h4>Kids & Drinks <span class="japanese">キッズ & ドリンク</span></h4>
+      <ul>
+          <li><span>Little Ninja Ramen <span class="japanese">リトル忍者ラーメン</span></span><span class="price">$7.99</span></li>
+          <li><span>Little Ninja White Rice Bowl <span class="japanese">リトル忍者ご飯</span></span><span class="price">$7.80</span></li>
+          <li><span>Soft Drinks / Hot Tea / Ice Tea</span></li>
+          <li><span>Assorted Japanese Bottled Drinks</span></li>
+          <li><span>Beer / Cold Sake / Wine</span></li>
+      </ul>
+  </div>
+
+</div>
+
+<div class="info">
+    <p>Location: 46 N Central Ave, Clayton, MO 63105</p>
+    <p>Operating Hours: Sunday - Thursday / 11am - 9pm, Friday - Saturday / 11am - 10pm</p>
+    <p>Contact: (314) 833-6264</p>
+    <p>Order online: <a href="https://namiramen.com/">namiramen.com</a></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Variations</title>
+    <style>
+        body {
+            font-family: strelka;
+            /* font-family:Verdana, Geneva, Tahoma, sans-serif; */
+            color:rgb(9, 255, 0);
+            font-size: 15px;
+            background-image: url("banner_1615182923 copy.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            background-blend-mode: color-burn;
+            background-color: brown;
+            margin: 0;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-family: Anatol MN;
+            font-size: 60px;
+            text-align: right;
+            position: fixed;
+            right: 130px;
+            top: 10px;
+        }
+
+        h4 {
+            text-align: left;
+            margin-left: 20px;
+            margin-top: 60px;
+        }
+
+        section {
+            margin: 2em 0;
+        }
+
+        /* Menu block style */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 9fr));
+            gap: 10px 30px;
+            text-align: center;
+        }
+
+        .menu-item {
+            background-color: rgba(107, 148, 163, 0.8);
+            color: #a1c821;
+            padding: 50px 2px;
+            border-radius: 100px;
+            transition: transform 0.9s, background-color 0.3s;
+            .price{
+                opacity:0;
+            }
+        }
+
+        .menu-item:hover {
+            background-color: rgba(153, 255, 0, 0.9);
+            transform: scale(1.5);
+            border-color: #5d711b;
+            border-style: dashed;
+            transition: 0.9px;
+            opacity: 100%;
+            .price{
+                opacity: 100%;
+                color: brown;
+                transition: 0.9s;
+            }
+        }
+
+        .menu-item p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
+        /* Optional: info block at bottom */
+        .info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 3em;
+            color: rgb(239, 112, 112);
+        }
+
+        .info p, .info a {
+            text-align: center;
+        }
+
+        a {
+            color:burlywood;
+            text-decoration: none;
+            transition: color 0.5s;
+        }
+
+        a:hover {
+            color: cornsilk;
+        }
+
+        img.logo {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+        }
+        h4{
+            font-size: 1.6em;
+        }
+        p{
+            text-align: left;
+            margin-left: 20px;
+            color: #a1c821;
+        }
+    </style>
+</head>
+<body>
+
+<img src="logo_pink.jpg" class="logo" alt="Logo">
+
+<h1 id="nami-ramen">NAMI RAMEN</h1>
+
+<!-- Starters -->
+<h4>Starters</h4>
+<section class="menu-grid" id="starters">
+    <div class="menu-item"><p>Karrage Chicken</p><p class="price">$8.50</p></div>
+    <div class="menu-item"><p>Spam Musubi</p><p class="price">$3.95</p></div>
+    <div class="menu-item"><p>Takoyaki</p><p class="price">$7.00</p></div>
+    <div class="menu-item"><p>Fried Calamari</p><p class="price">$8.50</p></div>
+    <div class="menu-item"><p>Honey Togarashi Chicken Wings</p><p class="price">$9.99</p></div>
+    <div class="menu-item"><p>Edamame</p><p class="price">$4.50</p></div>
+    <div class="menu-item"><p>Gyoza</p><p class="price">$7.99</p></div>
+    <div class="menu-item"><p>Vegetable Spring Rolls</p><p class="price">$7.99</p></div>
+    <div class="menu-item"><p>Hiyayakko (Cold Tofu)</p><p class="price">$6.99</p></div>
+    <div class="menu-item"><p>Agedashi Tofu</p><p class="price">$8.99</p></div>
+    <div class="menu-item"><p>Shumai (6)</p><p class="price">$7.99</p></div>
+    <div class="menu-item"><p>Bao</p><p class="price">$4.00 each</p></div>
+</section>
+
+<!-- Salads -->
+<h4>Salads</h4>
+<section class="menu-grid" id="salads">
+    <div class="menu-item"><p>Kale Salad</p><p class="price">$9.50</p></div>
+    <div class="menu-item"><p>Octopus Salad</p><p class="price">$10.50</p></div>
+    <div class="menu-item"><p>Seasonal Salad</p><p class="price">$8.00</p></div>
+    <div class="menu-item"><p>Honey Miso Glazed Salmon Salad</p><p class="price">$16.00</p></div>
+</section>
+
+<!-- Ramen & Noodles -->
+<h4>Ramen & Noodles</h4>
+<p>All ramen bowls come with soft boiled eggs, chopped green onions and nori.</p>
+<section class="menu-grid" id="ramen-noodles">
+    <div class="menu-item"><p>Nami Signature Tonkotsu</p><p class="price">$14.50</p></div>
+    <div class="menu-item"><p>Roasted Black Garlic Tonkotsu</p><p class="price">$15.00</p></div>
+    <div class="menu-item"><p>Rise & Shine Ramen</p><p class="price">$16.00</p></div>
+    <div class="menu-item"><p>Ebi Ten Ramen (Tempura)</p><p class="price">$16.00</p></div>
+    <div class="menu-item"><p>Jigoku Ramen</p><p class="price">$15.00</p></div>
+    <div class="menu-item"><p>Curry Laksa</p><p class="price">$15.00</p></div>
+    <div class="menu-item"><p>Veggie Ramen</p><p class="price">$13.50</p></div>
+    <div class="menu-item"><p>Gyuniku Ramen (Braised Beef)</p><p class="price">$15.00</p></div>
+    <div class="menu-item"><p>Chicken Katsu Ramen</p><p class="price">$15.00</p></div>
+    <div class="menu-item"><p>Grilled Chicken Ramen</p><p class="price">$15.00</p></div>
+    <div class="menu-item"><p>Lemongrass Chicken Yakisoba</p><p class="price">$13.00</p></div>
+    <div class="menu-item"><p>Show Me, Shoyu Ramen</p><p class="price">$14.50</p></div>
+    <div class="menu-item"><p>Volcano Ramen</p><p class="price">$14.10</p></div>
+    <div class="menu-item"><p>Sapporo Miso Ramen</p><p class="price">$16.00</p></div>
+</section>
+
+<!-- Rice Plates -->
+<h4>Rice Plates</h4>
+<section class="menu-grid" id="rice-plates">
+    <div class="menu-item"><p>Fried Rice - Chicken</p><p class="price">$11.00</p></div>
+    <div class="menu-item"><p>Fried Rice - Shrimp</p><p class="price">$12.50</p></div>
+    <div class="menu-item"><p>Fried Rice - Veg</p><p class="price">$12.50</p></div>
+    <div class="menu-item"><p>Signature Rice Plate - Chicken Tatsu</p><p class="price">$12.00</p></div>
+    <div class="menu-item"><p>Teriyaki Chicken</p><p class="price">$12.20</p></div>
+    <div class="menu-item"><p>Teriyaki Beef</p><p class="price">$13.00</p></div>
+    <div class="menu-item"><p>Chasu (Braised Pork)</p><p class="price">$12.00</p></div>
+    <div class="menu-item"><p>Tempura Shrimp</p><p class="price">$14.00</p></div>
+    <div class="menu-item"><p>Honey Miso Glazed Salmon</p><p class="price">$6.50</p></div>
+</section>
+
+<!-- Kids -->
+<h4>Kids</h4>
+<p>Comes with a Soft Drink.</p>
+<section class="menu-grid" id="kids">
+    <div class="menu-item"><p>Little Ninja Ramen</p><p class="price">$7.99</p></div>
+    <div class="menu-item"><p>Little Ninja White Rice Bowl</p><p class="price">$7.80</p></div>
+</section>
+
+<!-- Drinks -->
+<h4>Drinks</h4>
+<section class="menu-grid" id="drinks">
+    <div class="menu-item"><p>Soft Drinks / Hot Tea / Ice Tea</p></div>
+    <div class="menu-item"><p>Assorted Japanese Bottled Drinks</p></div>
+    <div class="menu-item"><p>Beer / Cold Sake / Wine</p></div>
+</section>
+
+<!-- Info Section -->
+<div class="info">
+    <p>Location:<br><strong>278 Skinker Blvd, MO 63130</strong></p>
+    <p>Operating on:<br>Sunday - Thursday / 11am - 9pm,<br>Friday - Saturday / 11am - 10pm</p>
+    <p>Contact:<br><strong>(314) 833-6264</strong></p>
+    <p>Order online at:<br><a href="https://namiramen.com/">https://namiramen.com/</a></p>
+    <p>Social Media:<br><a href="https://www.facebook.com/namiramen/">FACEBOOK</a></p>
+</div>
+
+</body>
+</html>
