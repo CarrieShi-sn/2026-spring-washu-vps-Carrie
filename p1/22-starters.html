@@ -5,9 +5,10 @@
     <title>Restaurant Variations</title>
     <style>
       body {
-        font-family: "Helvetica", Monospaced;
-        font-size:20px;
-        margin: 0px;
+        font-family:Riant Display semibold;
+        font-size:25px;
+        margin: 10px;
+        letter-spacing: 0.8px;
 
         background-image: url("side.jpg");
         background-size: cover;      /* fills the area */
@@ -63,6 +64,12 @@
     h1{
         text-align: center;
     }
+
+    h4{
+        font-family: Riant Display bold;
+        font-size: 30px;
+    }
+
     h6{
         text-align: center;
         color: blue;
@@ -82,6 +89,46 @@
         color: crimson;
      }
 
+     .menu-tabs {
+    position: relative;
+    width: 250px;
+    margin: 20px auto;
+}
+
+.menu-sticker {
+    display: block;
+    position: relative;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* Image default: black & white */
+.menu-sticker img {
+    width: 250px;
+    height: 200px;
+    filter: grayscale(100%);
+    transition: filter 0.6s ease, transform 0.4s ease;
+}
+
+/* On hover: back to color */
+.menu-sticker:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.05);
+}
+
+/* HOME text at bottom of sticker */
+.sticker-text {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.6);
+}
+
      @media screen and (max-width: 460px){
         #body{
         grid-template-columns: 1fr;}
@@ -89,12 +136,18 @@
 
     </style>
 
-<img src="logo_pink.jpg" width="100" height="100" class="ramen3">
-
 
 <h1 id="nami-ramen">NAMI RAMEN</h1>
-<a href="22.html", class="home">HOME</a>
 
+
+
+
+
+    <div class="menu-tabs">
+    <a href="22.html" class="menu-sticker">
+        <img src="home.png" alt="Home">
+    </a>
+</div>
 
 <h4><p><strong>Starters</strong></p></h4>
 <ul>

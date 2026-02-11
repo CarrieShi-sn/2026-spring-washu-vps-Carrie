@@ -6,9 +6,10 @@
     <link rel="icon" type="image/jpg" href="logo_pink.jpg">
     <style>
       body {
-        font-family: "Helvetica", Monospaced;
-        font-size:20px;
-        margin: 0px;
+        font-family:Riant Display semibold;
+        font-size:25px;
+        margin: 10px;
+        letter-spacing: 0.8px;
 
         background-image: url("ramen.jpg");
         background-size: cover;      /* fills the area */
@@ -17,7 +18,7 @@
         background-attachment: fixed;
         background-color: rgba(184, 148, 122, 0.8); /* fallback color */
         background-blend-mode: lighten;
-        height: 400px;
+        min-height:100vh;
     }
       .featured-items {
         color: rgb(190, 36, 36);
@@ -59,24 +60,33 @@
         grid-template-columns: 1fr 1fr;
     }
     p{
-        text-align: center;
+      text-align: center;
+      margin-bottom: 1.2em;
     }
     h1{
-        text-align: center;
+      text-align: center;
+       margin-bottom: 1.2em;
     }
-    h6{
+    h5{
         text-align: center;
+         margin-bottom: 1.2em;
         color: blue;
+        font-size: 20px;
         
     }
-     .ramen3 {
-        position: absolute;
-        top: 20px;
-        right:20px;
+    strong{
+      font-family: Riant Display Bold;
+      font-size: 30px;
+    }
+     .artiststicker {
+        position: fixed;
+        bottom: 40px;
+        right:30px;
      }
+     
      a{
         transition:1s;
-        font-size: 20px;
+        font-size: 25px;
      }
      a:hover{
         font-size: 48px;
@@ -123,44 +133,134 @@
     transition: 1s;
 }
 
+.artist-link img {
+  transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.artist-link:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
 .menu-tabs {
   position: fixed;
-  right: 540px;
-  top: 60%;
+  left: 5%;
+  top: 50%;
   transform: translateY(-50%);
   display: flex;
   flex-direction: column;
-  gap: 12em;
+  gap: 2em;
   z-index: 10;
 }
 
-.menu-tab {
-  text-decoration: none;
-  color:blue;
-  font-size: 24px;
-  letter-spacing: 0.1em;
 
-  /* rotation */
-  transform: rotate(-90deg);
-  transform-origin: left center;
+.menu-tabs img {
+  height: auto;
+
+  filter: grayscale(100%) contrast(1.1);
+  transition: filter 0.6s ease, transform 0.6s ease;
+}
+
+/* color on hover */
+.menu-tabs a:hover img {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1.06);
+}
+
+.text-block {
+  max-width: 800px;        /* controls readable width */
+  margin: 0 auto 3em auto; /* center horizontally + spacing below */
+  text-align: center;
+  padding: 2em 3em;
+  box-sizing: border-box;
+}
+
+
+
+/* ================= RESPONSIVE ONLY ================= */
+
+@media (max-width: 1200px) {
+  .text-block {
+    margin-left: 35%;
+    max-width: 70%;
+    width: 70%;
+  }
+}
+
+@media (max-width: 900px) {
+  .text-block {
+    margin-left: 30%;
+    max-width: 75%;
+    width: 75%;
+  }
+
+  .menu-tabs img {
+    width: 200px;
+    height: auto;
+  }
+
+  .text-tabs {
+    position: fixed;
+    left: 1%;
+    top: 75%;
+    transform: none;
+  }
+
+}
+
+
+@media (max-width: 600px) {
+  .text-block {
+    margin-left: 25%;
+    max-width: 80%;
+    width: 80%;
+  }
+  
+  .menu-tabs img {
+    width: 150px;
+    height: auto;
+  }
+
+  .artiststicker {
+    width: 80px;
+    height: auto;
+  }
+
+/* ================= TEXT MENU TABS ================= */
+
+.text-tabs {
+  position: fixed;
+  right: 3%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  z-index: 10;
+}
+
+
+
+
 }
 
 
     </style>
+</head>
 
-<img src="logo_pink.jpg" width="100" height="100" class="ramen3">
 
+<div class="text-block">
 
 <h1 id="nami-ramen">NAMI RAMEN</h1>
-<h6 id="st.louis">ST.LOUIS</h6>
+<h5 id="st.louis">goodness in a bowl</h5>
 <blockquote>
+  <br><br>
 <p>Location:<br>
 <strong>278 Skinker Blvd, MO 63130</strong>
 <br>
 <br>
 Operating on:<br>
-Sunday - Thursday / 11am - 9pm,<br>
-Friday - Saturday / 11am - 10pm
+Sunday - Thursday / 11am - 9pm, Friday - Saturday / 11am - 10pm
 <br>
 <br>
 Contact:<br>
@@ -173,7 +273,11 @@ Order online at:<br>
 Social Media:<br>
 <a href="https://www.facebook.com/namiramen/">FACEBOOK</a></p>
 
+
+</p>
 </blockquote>
+</div>
+
 
 <br><br>
 <section id="featured item" style="text-align: center;"><strong>Featured Items</strong></p>
@@ -218,13 +322,38 @@ Social Media:<br>
 
 <br>
 
-Explore our menu:<br><br>
 <div class="menu-tabs">
-  <a href="22-starters.html" class="menu-tab starters">STARTERS</a>
-  <a href="22-ramen.html" class="menu-tab ramen">RAMEN</a>
-  <a href="22-drinks.html" class="menu-tab drinks">DRINKS</a>
+  <a href="22-starters.html" class="menu-tab-starters">
+    <img src="starterssticker.png" alt="Starters" width="250px" height="150px">
+    <br>Starters
+  </a>
+
+  <a href="22-ramen.html" class="menu-tab-ramen">
+    <img src="ramensticker.png" alt="Ramen" width="250px" height="150px">
+    <br>Ramen
+  </a>
+
+  <a href="22-drinks.html" class="menu-tab-drinks">
+    <img src="drinkssticker.png" alt="Drinks" width="250px" height="150px">
+    <br>Drinks
+  </a>
 </div>
+
+<a href="https://www.edorosenblith.com/"
+   target="_blank" class="artist-link">
+
+  <img src="artiststicker.png" width="120" height="110" class="artiststicker">
+
+</a>
+
+
+
+
+
 
 </section>
 
 <br>
+
+</body>
+</html>
