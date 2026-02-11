@@ -22,13 +22,6 @@
             background-color:aliceblue;
     }
 
-   .content-block {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 28px 32px;
-        background-color: rgba(255, 255, 255, 0.75);
-        border-radius: 14px;
-    }
 
 
     /* Logo */
@@ -101,10 +94,23 @@
     .info a:hover {
         color: #1a374d;
     }
+
+/* Semi-transparent white content box */
+.content {
+    max-width: 900px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.85); /* white with transparency */
+    padding: 40px;
+    opacity: 70%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+
 </style>
 </head>
 <body>
-<div class="content-block">
+
+<div class="content">
 
 <img src="logo_pink.jpg" class="logo" alt="Logo">
 
