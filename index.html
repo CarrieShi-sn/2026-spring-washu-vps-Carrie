@@ -5,29 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrie's Class Website, Spring 2026 at WashU</title>
     <link rel="stylesheet" href="assets/css/style.css">
+    
+    <style>
+        body{
+            background-image:-moz-linear-gradient();
+            background-color:rgb(210, 210, 210);
+        }
+
+        .container{
+            display:flex;
+            flex-direction:rows;
+            flex:1;
+            flex-wrap: nowrap;
+        }
+
+        h1{
+            font-family:BDRmono2006 ;
+            /* color:rgb(131, 160, 95); */
+            color:darkred;
+            font-size: 100px;
+            text-align: center;
+        }
+
+        .Exercises, .Readings, .Projects, p{
+            border-style: dotted;
+            margin: 15px;
+            font-family:futura;
+        }
+
+    </style>
 </head>
 <body>
     <h1>Carrie's class website</h1>
-    <p>Welcome to my class website!</p>
-    <hr>
-    <h2>Exercises</h2>
-    <ul>
-        <li><a href="profile-card.html">Profile Card</a></li>
-        <li>Collection of Things</li>
-    </ul>
-    <h2>Readings</h2>
-    <ul>
-        <li><a href="reading1.html">Restaurant Websites</a></li>
-        <li><a href="reading2.html">The New Turing Test</a></li>
-        <li><a href="reading3.html">Cyborgs vs Rooms</a></li>
-        <li><a href="reading4.html">My website is a shifting house...</a></li>
-    </ul>
-    <h2>Projects</h2>
-    <ul>
-        <li><a href="p1/index.html">Project 1. Restaurant or Café Variations</a></li>
-        <li>Project 2. Book → Website</li>
-        <li>Project 3. Standby Mode</li>
-    </ul>
-    </body>
+    <br>
+    <p>Welcome to my class website!</p> 
+    <br><br>
+    
+    <div class="container">
+
+    <div class="Exercises">
+        <h2>Exercises</h2>
+        <a href="profile-card.html">Profile Card</a>
+        <br><br>
+        Collection of Things
+    </div>
+
+    <div class="Readings">
+        <h2>Readings</h2>
+        <a href="reading1.html">Restaurant Websites</a><br><br>
+        <a href="reading2.html">The New Turing Test</a><br><br>
+        <a href="reading3.html">Cyborgs vs Rooms</a><br><br>
+        <a href="reading4.html">My website is a shifting house...</a><br><br>
+    </div>
+
+    <div class="Projects">
+        <h2>Projects</h2>
+        <a href="p1/index.html">Project 1. Restaurant or Café Variations</a><br><br>
+        <a href="p2/index.html">Project 2. Book → Website</a><br><br>
+        Project 3. Standby Mode<br><br>
+    </div>
+
+</div>
+
 </body>
 </html>
