@@ -8,13 +8,17 @@
     
     <style>
         body{
-            background-image:-moz-linear-gradient();
-            background-color:rgb(210, 210, 210);
+        background-image: url("personal website photo.jpg");
+        background-size: cover;      /* fills the area */
+        background-blend-mode: color-burn;
+        background-color: rgba(0, 0, 0, 0.5); /* fallback color */
+        background-attachment: fixed;
         }
+        
 
         .container{
             display:flex;
-            flex-direction:rows;
+            flex-direction:row;
             flex:1;
             flex-wrap: nowrap;
         }
@@ -22,25 +26,104 @@
         h1{
             font-family:BDRmono2006 ;
             /* color:rgb(131, 160, 95); */
-            color:darkred;
+            color:rgb(188, 12, 12);
             font-size: 100px;
             text-align: center;
         }
 
-        .Exercises, .Readings, .Projects, p{
-            border-style: dotted;
+        .Exercises, .Readings, .Projects{
+            text-align: center;
+            border: 2px dotted white;
+            border-top-left-radius: 50px;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-top-right-radius: 5px;
+
+            padding: 50px;
             margin: 15px;
-            font-family:futura;
+            margin-left: 200px;
+
+            font-family: futura;
+            font-size: 20px;
+
+            background: rgba(255, 255, 255, 0.25); /* semi-transparent white */
+            backdrop-filter: blur(2.5px);            /* optional glass effect */
+            position: relative;                    /* important for hole */
         }
 
+        .Exercises:hover, .Readings:hover, .Projects:hover{
+            transform: rotate(-5deg);
+            transition: transform 0.3s ease-in-out;
+            background: rgba(255, 255, 255, 0.35); /* slightly more opaque on hover */
+            backdrop-filter: blur(3px);            /* enhance blur on hover */
+             box-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* subtle glow on hover */
+            cursor: url("tiny-hand.png") 12 12, auto; /* custom cursor on hover */
+        }
+
+        .Exercises:hover a,
+        .Readings:hover a,
+        .Projects:hover a{
+            color: rgb(45, 48, 41);
+            cursor: url("tiny-hand.png") 12 12, pointer; /* custom cursor on hover */
+
+        }
+
+
+        .Exercises::before,
+        .Readings::before,
+        .Projects::before{
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background: rgba(255, 255, 255, 0.11); /* same as parent */
+            backdrop-filter: blur(0.5px);            /* same as parent */
+            border-radius: 50%;
+            top: 20px;
+            left: 20px;
+
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.3);
+        }
+
+        h2{
+            font-size: 20px;
+        }
+
+        a{
+            color: rgb(171, 179, 112);
+        }
+
+        p{
+            font-family:futura;
+            font-size: 30px ;
+            text-align: center;
+            color: antiquewhite;
+        }
+
+        .block-wrapper{
+             position:relative;
+             padding:10px;
+        }
+
+
+
+        .block-wrapper{
+        color: antiquewhite;
+        }
+
+
+
     </style>
-</head>
+    </head>
+    
+
 <body>
     <h1>Carrie's class website</h1>
     <br>
     <p>Welcome to my class website!</p> 
     <br><br>
     
+    <div class="block-wrapper">
     <div class="container">
 
     <div class="Exercises">
@@ -64,6 +147,7 @@
         <a href="p2/index.html">Project 2. Book → Website</a><br><br>
         Project 3. Standby Mode<br><br>
     </div>
+</div>
 
 </div>
 
