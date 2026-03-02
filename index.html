@@ -14,20 +14,19 @@
         background-color: rgba(0, 0, 0, 0.5); /* fallback color */
         background-attachment: fixed;
         }
-        
 
-        .container{
-            display:flex;
-            flex-direction:row;
-            flex:1;
-            flex-wrap: nowrap;
+        .container {
+            display: flex;
+            justify-content: center;   /* centers horizontally */
+            gap: 40px;                 /* space between cards */
+            flex-wrap: wrap;           /* allows wrapping on small screens */
         }
 
         h1{
             font-family:BDRmono2006 ;
             /* color:rgb(131, 160, 95); */
             color:rgb(188, 12, 12);
-            font-size: 100px;
+            font-size: clamp(48px, 8vw, 100px);
             text-align: center;
             text-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
 
@@ -42,8 +41,7 @@
             border-top-right-radius: 5px;
 
             padding: 50px;
-            margin: 15px;
-            margin-left: 200px;
+            margin: 20px;
 
             font-family: futura;
             font-size: 20px;
