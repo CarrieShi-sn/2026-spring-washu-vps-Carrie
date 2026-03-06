@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dream of the Red Chamber</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        background-image: url(Lotus.jpg);
+        background-size: cover;
+        background-position: center;
+        font-family: Georgia, serif;
+    }
+
+    /* Title */
+    .title {
+        position: absolute;
+        top: 30px;
+        width: 100%;
+        font-size: 36px;
+        letter-spacing: 2px;
+        color: white;
+        text-shadow: 0 0 15px rgba(0,0,0,0.6);
+        z-index: 50;
+        font-family: Libian SC;
+        margin-left: 30px;
+    }
+
+    h1{
+        position: absolute;
+        bottom: 30px;
+        width: 100%;
+        font-size: 36px;
+        letter-spacing: 2px;
+        color: rgb(255, 255, 255);
+        text-shadow: 0 0 15px rgba(0,0,0,0.6);
+        z-index: 50;
+        margin-left: 30px;
+        font-family: Pantasia-Italic;
+    }
+
+    h2{
+        font-size: 18px;
+        color: rgb(255, 255, 255);
+        text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        margin-top: 5px;
+        font-family: Libian SC;
+
+    }
+
+    .stage {
+        display: flex;
+        height: 100vh;
+        position: relative;
+    }
+
+    .curtain-left {
+        flex: 1;
+        background-color: rgba(240, 248, 255, 0.1);
+        transition: transform 1s ease-in-out, filter 0.6s ease;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 14px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .curtain-right {
+        flex: 1;
+        background: linear-gradient(to left, #b2cfec, #dfcbdf, rgba(226, 231, 234, 0.9));
+        transition: transform 1s ease-in-out, filter 0.6s ease;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #8b98b4;
+        font-size: 14px;
+        text-align: center;
+        padding: 10px;
+    }
+
+    /* overlap */
+    .curtain-left:not(:first-child){
+        margin-left: -25px;
+    }
+
+     .curtain-right:not(:first-child) {
+        margin-left: -25px;
+    }
+
+    /* Left curtains move left */
+    .curtain-left:hover {
+        transform: translateX(-40px) scaleX(1.1);
+        z-index: 20;
+        filter: brightness(0.2);
+    }
+
+    /* Right curtains move right */
+    .curtain-right:hover {
+        transform: translateX(40px) scaleX(1.1);
+        z-index: 20;
+        filter: brightness(1.2);
+    }
+
+    .name {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .english {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .chinese {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+        font-size: 30px;
+        letter-spacing: 6px;
+        font-family: Libian SC;
+    }
+
+</style>
+</head>
+
+<body>
+
+<div class="title">红 楼 金 陵 十 二 钗</div>
+<h1>Dream of the Red Chamber</h1>
+
+<div class="stage">
+
+    <!-- Left Side -->
+    <div class="curtain-left">
+        <div class="name">
+            <span class="english" onclick="window.location.href='1-LinDaiyu.html'">Lin Daiyu</span>
+            <span class="chinese">林黛玉</span>
+        </div>
+    </div>
+
+    <div class="curtain-left">
+        <div class="name">
+            <span class="english">Xue Baochai</span>
+            <span class="chinese">薛宝钗</span>
+        </div>
+    </div>
+
+    <div class="curtain-left">
+        <div class="name">
+            <span class="english">Jia Yuanchun</span>
+            <span class="chinese">贾元春</span>
+        </div>
+    </div>
+
+    <div class="curtain-left">
+        <div class="name">
+            <span class="english">Jia Tanchun</span>
+            <span class="chinese">贾探春</span>
+        </div>
+    </div>
+
+    <div class="curtain-left">
+        <div class="name">
+            <span class="english">Shi Xiangyun</span>
+            <span class="chinese">史湘云</span>
+        </div>
+    </div>
+
+    <div class="curtain-left">
+        <div class="name">
+            <span class="english">Miaoyu</span>
+            <span class="chinese">妙玉</span>
+        </div>
+    </div>
+
+    <!-- Right Side -->
+    <div class="curtain-right">
+        <div class="name">
+            <span class="english">Jia Yingchun</span>
+            <span class="chinese">贾迎春</span>
+        </div>
+    </div>
+
+    <div class="curtain-right">
+        <div class="name">
+            <span class="english">Jia Xichun</span>
+            <span class="chinese">贾惜春</span>
+        </div>
+    </div>
+
+    <div class="curtain-right">
+        <div class="name">
+            <span class="english">Wang Xifeng</span>
+            <span class="chinese">王熙凤</span>
+        </div>
+    </div>
+
+    <div class="curtain-right">
+        <div class="name">
+            <span class="english">Qin Keqing</span>
+            <span class="chinese">秦可卿</span>
+        </div>
+    </div>
+
+    <div class="curtain-right">
+        <div class="name">
+            <span class="english">Li Wan</span>
+            <span class="chinese">李纨</span>
+        </div>
+    </div>
+
+    <div class="curtain-right">
+        <div class="name">
+            <span class="english">Jia Qiaojie</span>
+            <span class="chinese">贾巧姐</span>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
