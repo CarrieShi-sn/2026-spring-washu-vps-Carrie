@@ -3,55 +3,382 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lin Daiyu</title>
 
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background-image: url('LinDaiyu.jpeg'); ;
+            font-family: Georgia, serif;
+            background-image: url('Lotus.jpg');
             background-size: cover;
             background-position: center;
+            height: 100vh;
+            overflow: hidden;
         }
 
-        .Person {
+        /* ---------------- LEFT NAV BAR ---------------- */
+        .nav-band {
+            width: 10%;
+            min-width: 120px;
+            height: 100vh;
+            background: rgba(168, 65, 205, 0.12);
+            backdrop-filter: blur(4px);
+            border-right: 1px solid rgba(255,255,255,0.25);
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            padding-top: 40px;
+            z-index: 10;
+            position: fixed;
+            left: 0;
+            top: 0;
+            box-sizing: border-box;
+        }
+
+        .nav-container {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            font-family: Pantasia;
+            gap: 20px;
         }
 
-        .button {
-            padding: 15px 30px;
-            font-size: 18px;
+        .nav-tab {
+            font-size: 20px;
             color: white;
-            background-color: #95999e;
-            border: none;
-            border-radius: 5px;
+            letter-spacing: 2px;
             cursor: pointer;
-            margin-top: 20px;
-            font-family: Pantasia;
+            padding: 1px;
+            position: relative;
+            transition: opacity 0.3s ease, transform 0.2s ease;
         }
 
-        .button:hover {
-            background-color: #babdc2;
+        .nav-tab:hover {
+            opacity: 0.7;
+            transform: translateX(4px);
+        }
+
+        .nav-tab .dot {
+            width: 6px;
+            height: 6px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            right: 47%;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-tab.active .dot {
+            opacity: 1;
+        }
+
+        /* ---------------- CONTENT AREA ---------------- */
+        .content {
+            margin-left: 10%;
+            width: calc(100% - 10%);
+            height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(13, 1fr);
+            position: relative;
+        }
+
+        /* LEFT IMAGE LAYER */
+        .daiyu-img {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 58%;
+            background-image: url('LinDaiyu.jpeg');
+            background-blend-mode: color-burn;
+            background-color: rgba(119, 140, 213, 0.15);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: left center;
+            pointer-events: none;
+
+            mask-image: linear-gradient(
+                to right,
+                transparent 0%,
+                black 18%,
+                black 82%,
+                transparent 100%
+            );
+            -webkit-mask-image: linear-gradient(
+                to right,
+                transparent 0%,
+                black 18%,
+                black 82%,
+                transparent 100%
+            );
+        }
+
+        /* RIGHT WHITE COLUMN */
+        .right-side {
+            grid-column: 9 / span 5;
+            background: rgba(239, 243, 243, 0.65);
+            backdrop-filter: blur(2px);
+            padding: 36px 34px 30px 34px;
+            overflow-y: auto;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            box-shadow: -10px 0 30px rgba(90, 86, 102, 0.08);
+        }
+
+        /* ---------------- TOP 30% PANEL ---------------- */
+        .top-panel {
+            min-height: 30%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(120, 120, 140, 0.18);
+        }
+
+        .character-mark {
+            font-family: "Libian SC", serif;
+            font-size: 48px;
+            line-height: 1;
+            color: #7f8596;
+            letter-spacing: 6px;
+            margin: 0 0 10px 0;
+        }
+
+        .character-name {
+            font-family: "Libian SC", serif;
+            font-size: 34px;
+            line-height: 1.1;
+            color: #6d7487;
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .character-subtitle {
+            margin-top: 10px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #9ca3b3;
+        }
+
+        .curtain-link {
+            margin-top: 22px;
+            width: fit-content;
+            font-size: 15px;
+            letter-spacing: 1px;
+            color: #7a8194;
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .curtain-link::after {
+            content: "";
+            display: block;
+            margin-top: 6px;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(
+                to right,
+                rgba(122,129,148,0.75),
+                rgba(122,129,148,0.15)
+            );
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: left center;
+        }
+
+        .curtain-link:hover {
+            color: #5f6678;
+            transform: translateX(4px);
+        }
+
+        .curtain-link:hover::after {
+            transform: scaleX(1.08);
+            opacity: 0.9;
+        }
+
+        /* ---------------- POEM AREA / LOWER 60% ---------------- */
+        .poem-panel {
+            min-height: 60%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-top: 28px;
+        }
+
+        .poem-title {
+            font-family: "Libian SC", serif;
+            font-size: 30px;
+            color: #5e667a;
+            margin: 0 0 22px 0;
+            letter-spacing: 2px;
+        }
+
+        .poem-block {
+            margin-bottom: 18px;
+        }
+
+        .chinese {
+            font-size: 26px;
+            letter-spacing: 4px;
+            font-family: "Libian SC", serif;
+            color: #3f4657;
+        }
+
+        .pinyin {
+            font-size: 13px;
+            color: #7c8291;
+            letter-spacing: 0.5px;
+        }
+
+        .english {
+            font-size: 13px;
+            letter-spacing: 0.8px;
+            color: #8f95a3;
+        }
+
+        /* ---------------- MOBILE ---------------- */
+        @media (max-width: 900px) {
+            .nav-band {
+                width: 14%;
+                min-width: 90px;
+            }
+
+            .content {
+                margin-left: 14%;
+                width: calc(100% - 14%);
+                grid-template-columns: 1fr;
+            }
+
+            .daiyu-img {
+                width: 100%;
+                opacity: 0.4;
+            }
+
+            .right-side {
+                grid-column: 1;
+                margin-left: auto;
+                width: 58%;
+                min-width: 320px;
+            }
+        }
+
+        @media (max-width: 700px) {
+            .right-side {
+                width: 100%;
+                min-width: 0;
+                padding: 26px 22px 24px 22px;
+            }
+
+            .character-mark {
+                font-size: 40px;
+            }
+
+            .character-name {
+                font-size: 28px;
+            }
+
+            .poem-title {
+                font-size: 26px;
+            }
+
+            .chinese {
+                font-size: 22px;
+            }
         }
     </style>
-
-
-
-
 </head>
+
 <body>
-    
-    <div class="Person">
-        <h1>Lin Daiyu</h1>
-        <button class="button" onclick="window.location.href='curtain.html'">Curtain</button>
+
+    <!-- NAV -->
+    <div class="nav-band">
+        <div class="nav-container">
+            <div class="nav-tab" data-page="book about" onclick="window.location.href='Book about.html'">
+                Dream of the Red Chamber
+                <span class="dot"></span>
+            </div>
+
+            <div class="nav-tab" data-page="about" onclick="window.location.href='About.html'">
+                About
+                <span class="dot"></span>
+            </div>
+
+            <div class="nav-tab" data-page="curtain" onclick="window.location.href='curtain.html'">
+                Person
+                <span class="dot"></span>
+            </div>
+
+            <div class="nav-tab" data-page="chapter-mode" onclick="window.location.href='Chapter.html'">
+                Chapter
+                <span class="dot"></span>
+            </div>
+        </div>
     </div>
 
+    <!-- MAIN CONTENT -->
+    <div class="content">
+
+        <!-- LEFT PORTRAIT -->
+        <div class="daiyu-img"></div>
+
+        <!-- RIGHT PANEL -->
+        <div class="right-side">
+
+            <div class="top-panel">
+                <div class="character-mark">林黛玉</div>
+                <h1 class="character-name">Lin Daiyu</h1>
+                <div class="character-subtitle">Crimson fragility · buried blossom</div>
+                <a class="curtain-link" href="curtain.html">Return to Curtain</a>
+            </div>
+
+            <div class="poem-panel">
+                <h2 class="poem-title">葬花吟</h2>
+
+                <div class="poem-block">
+                    <span class="chinese">花 謝 花 飛 花 滿 天</span><br>
+                    <span class="pinyin">huā xiè huā fēi huā măn tiān</span><br>
+                    <span class="english">flowers fade flowers fly flowers fill sky</span>
+                </div>
+
+                <div class="poem-block">
+                    <span class="chinese">紅 消 香 斷 有 誰 憐</span><br>
+                    <span class="pinyin">hóng xiāo xiāng duàn yŏu shéi lián</span><br>
+                    <span class="english">crimson fades scent cut-off who will pity</span>
+                </div>
+
+                <div class="poem-block">
+                    <span class="chinese">游 絲 軟 繫 飄 春 榭</span><br>
+                    <span class="pinyin">yóu sī ruăn xì piāo chūn xiè</span><br>
+                    <span class="english">drifting threads softly float by spring kiosk</span>
+                </div>
+
+                <div class="poem-block">
+                    <span class="chinese">落 絮 輕 沾 撲 繡 簾</span><br>
+                    <span class="pinyin">luò xù qīng zhān pū xiù lián</span><br>
+                    <span class="english">falling floss moistens embroidered curtain</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const current = "curtain";
+            document.querySelectorAll(".nav-tab").forEach(tab => {
+                if (tab.dataset.page === current) {
+                    tab.classList.add("active");
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>

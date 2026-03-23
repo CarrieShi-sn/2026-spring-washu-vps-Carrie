@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chapter Mode — Dream of the Red Chamber</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    overflow: hidden;
+    background-image: url(Lotus.jpg);
+    background-size: cover;
+    background-position: center;
+    font-family: Georgia, serif;
+    display: flex;
+}
+
+/* ---------------- NAV ---------------- */
+.nav-band {
+    width: 18vh;
+    min-width: 120px;
+    height: 100vh;
+    background: rgba(168, 65, 205, 0.12);
+    backdrop-filter: blur(4px);
+    border-right: 1px solid rgba(255,255,255,0.25);
+    display: flex;
+    justify-content: center;
+    padding-top: 40px;
+    box-sizing: border-box;
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.nav-tab {
+    font-size: 20px;
+    color: white;
+    letter-spacing: 2px;
+    cursor: pointer;
+    position: relative;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.nav-tab:hover {
+    opacity: 0.7;
+    transform: translateX(4px);
+}
+
+.nav-tab .dot {
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    right: 40%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.nav-tab.active .dot {
+    opacity: 1;
+}
+
+/* ---------------- MAIN CONTENT ---------------- */
+.chapter-area {
+    width: calc(100vw - 18vh);
+    height: 100vh;
+    overflow-y: auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.chapter-area::-webkit-scrollbar {
+    width: 0;
+}
+
+/* ---------------- CURTAIN STRIPS ---------------- */
+.volume-strip {
+    width: 100%;
+    min-height: 20vh;
+    padding: 22px 28px;
+    box-sizing: border-box;
+
+    background: linear-gradient(
+        to right,
+        rgba(178, 192, 236, 0.55),
+        rgba(223, 203, 223, 0.35),
+        rgba(226, 231, 234, 0.40)
+    );
+
+    color: #f8f8f8;
+    border-top: 1px solid rgba(255,255,255,0.3);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    overflow: hidden;
+    text-shadow: 0 0 5px rgba(51, 88, 130, 0.6);
+
+    transition:
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        filter 0.8s ease,
+        background 0.8s ease;
+}
+
+.volume-strip:hover {
+    transform: translateX(12px);
+    filter: brightness(1.1);
+    background: linear-gradient(
+        to right,
+        rgba(178, 207, 236, 0.5),
+        rgba(223, 203, 223, 0.5),
+        rgba(226, 231, 234, 0.55)
+    );
+    z-index: 5;
+    position: relative;
+}
+
+.volume-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    transition: opacity 0.6s ease;
+}
+
+/* ---------------- CHAPTERS APPEAR SLOWLY ON HOVER ---------------- */
+.chapter-list {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition:
+        opacity 0.8s ease,
+        max-height 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.volume-strip:hover .chapter-list {
+    opacity: 1;
+    max-height: 2000px;
+}
+
+/* ---------------- CHAPTER ITEM ---------------- */
+.chapter {
+    margin-top: 12px;
+    transform: translateX(-10px);
+    opacity: 0;
+    transition:
+        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.7s ease;
+}
+
+/* staggered reveal */
+.volume-strip:hover .chapter:nth-child(1)  { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(2)  { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(3)  { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(4)  { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(5)  { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(6)  { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(7)  { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(8)  { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(9)  { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(10) { transition-delay: 0.1; }
+.volume-strip:hover .chapter:nth-child(11) { transition-delay: 0.1s; }
+.volume-strip:hover .chapter:nth-child(12) { transition-delay: 0.1; }
+
+.volume-strip:hover .chapter {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.chapter-title {
+    font-size: 18px;
+    color: #6f8b9c;
+    text-shadow: 0 0 3px rgba(83, 89, 102, 0.5);  
+    margin-bottom: 4px;
+    cursor: pointer;
+    font-family: Pantasia;
+    line-height: 200%;
+}
+
+/* ---------------- SUMMARY: SHOW ON CLICK ---------------- */
+.chapter-summary {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #6f8b9c;
+    text-shadow: 0 0 1px rgba(119, 133, 208, 0.4);
+    line-height: 150%;
+
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+
+    transition:
+        opacity 0.6s ease,
+        max-height 0.6s ease;
+}
+
+.chapter.open .chapter-summary {
+    opacity: 1;
+    max-height: 220px;
+}
+
+/* ---------------- MOBILE ---------------- */
+@media (max-width: 700px) {
+    .nav-band {
+        width: 14vh;
+        min-width: 85px;
+    }
+
+    .chapter-area {
+        width: calc(100vw - 14vh);
+    }
+
+    .volume-strip {
+        min-height: auto;
+        padding: 18px 20px;
+    }
+
+    .volume-strip:hover {
+        transform: none;
+    }
+
+    .volume-title {
+        font-size: 18px;
+    }
+
+    .chapter-title {
+        font-size: 14px;
+    }
+
+    .chapter-summary {
+        font-size: 13px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="nav-band">
+    <div class="nav-container">
+        <div class="nav-tab" onclick="window.location.href='Book about.html'">
+            Dream of the Red Chamber
+            <span class="dot"></span>
+        </div>
+
+        <div class="nav-tab" onclick="window.location.href='About.html'">
+            About
+            <span class="dot"></span>
+        </div>
+
+        <div class="nav-tab" onclick="window.location.href='curtain.html'">
+            Person
+            <span class="dot"></span>
+        </div>
+
+        <div class="nav-tab active">
+            Chapter
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="chapter-area">
+
+    <div class="volume-strip">
+        <div class="volume-title">Volume I (1–12)</div>
+        <div class="chapter-list">
+            <div class="chapter">
+                <div class="chapter-title">Chapter 1</div>
+                <div class="chapter-summary">Zhen Shiyin, in a vision, apprehends perception and spirituality. Jia Yucun, in the (windy and dusty) world, cherishes fond thoughts of a beautiful maiden.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 2</div>
+                <div class="chapter-summary">The spirit of Mrs. Jia Shiyin departs from the town of Yang Zhou. Leng Zixing dilates upon the Rong Guo Mansion.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 3</div>
+                <div class="chapter-summary">Lin Ruhai appeals to his brother-in-law, Jia Zheng, recommending Yucun, his daughter’s tutor, to his consideration. Dowager lady Jia sends to fetch her granddaughter, out of commiseration for her being a motherless child.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 4</div>
+                <div class="chapter-summary">An ill-fated girl happens to meet an ill-fated young man. The Hulu Bonze adjudicates the Hulu case.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 5</div>
+                <div class="chapter-summary">The spirit of Jia Baoyu visits the confines of the Great Void. The Monitory Vision Fairy expounds, in ballads, the Dream of the Red Chamber.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 6</div>
+                <div class="chapter-summary">Jia Baoyu reaps his first experience in licentious love. Old goody Liu pays a visit to the Rong Guo Mansion.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 7</div>
+                <div class="chapter-summary">Presentation of artificial flowers made in the Palace. Jia Lian disports himself with Xifeng. Baoyu meets Qin Zhong at a family party.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 8</div>
+                <div class="chapter-summary">By a strange coincidence, Jia Baoyu becomes acquainted with the golden clasp. In an unexpected meeting, Xue Baochai sees the jade of spiritual perception.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 9</div>
+                <div class="chapter-summary">Jia Zheng gives good advice to his wayward son. Li Gui receives a reprimand. Jia Rui and Li Gui rebuke the obstinate youths! Mingyan causes trouble in the schoolroom.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 10</div>
+                <div class="chapter-summary">Widow Jin, prompted by a desire to reap advantage, puts up temporarily with an insult. Dr. Zhang in discussing Mrs. Jin’s illness minutely exhausts its origin.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 11</div>
+                <div class="chapter-summary">In honor of Jia Jing’s birthday, a family banquet is spread in the Ning Mansion. At the sight of Xifeng, Jia Rui entertains feelings of licentious love.</div>
+            </div>
+            <div class="chapter">
+                <div class="chapter-title">Chapter 12</div>
+                <div class="chapter-summary">Wang Xifeng maliciously lays a trap for Jia Rui, under pretence that his affection is reciprocated. Jia Tianxiang gazes at the face of the mirror of voluptuousness.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="volume-strip">
+        <div class="volume-title">Volume II (13–24)</div>
+        <div class="chapter-list">
+            <div class="chapter"><div class="chapter-title">Chapter 13</div><div class="chapter-summary">Qin Keqing dies, and Jia Rong is invested with the rank of military officer to the Imperial Bodyguard. Wang Xifeng lends her help in the management of the Rong Guo Mansion.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 14</div><div class="chapter-summary">Lin Ruhai dies in the City of Yangzhou. Jia Baoyu meets the Prince of Beijing on the way.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 15</div><div class="chapter-summary">Lady Feng, nee Wang, exercises her authority in the Iron Fence Temple. Qin Jingqing (Qin Zhong) amuses himself in the Mantou (Bread) nunnery.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 16</div><div class="chapter-summary">Jia Yuanchun is, on account of her talents, selected to enter the Feng Zao Palace. Qin Jingqing departs, in the prime of life, by the yellow spring road.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 17</div><div class="chapter-summary">In the Daguan Garden, (Broad Vista,) the merits of Baoyu are put to the test, by his being told to write devices for scrolls and tablets. Yuanchun returns to the Rong Guo mansion, on a visit to her parents, and offers her congratulations to them on the feast of lanterns, on the fifteenth of the first moon.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 18</div><div class="chapter-summary">His Majesty shows magnanimous bounty. The Imperial consort Yuan pays a visit to her parents. The happiness of a family gathering. Baoyu displays his polished talents.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 19</div><div class="chapter-summary">In the vehemence of her feelings, Hua (Xiren) on a quiet evening admonishes Baoyu. While (the spell) of affection continues unbroken, Baoyu, on a still day, perceives the fragrance emitted from Daiyu’s person.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 20</div><div class="chapter-summary">Wang Xifeng with earnest words upbraids Mrs. Zhao’s jealous notions. Lin Daiyu uses specious language to make sport of Shi Xiangyun’s querulous tone of voice.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 21</div><div class="chapter-summary">The eminent Xiren, with winsome ways, rails at Baoyu, with a view to exhortation. The beauteous Ping’er, with soft words, screens Jia Lian.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 22</div><div class="chapter-summary">Upon hearing the text of the stanza, Baoyu comprehends the Buddhistic spells. While the enigmas for the lanterns are being devised, Jia Zheng is grieved by a prognostic.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 23</div><div class="chapter-summary">Baoyu and Daiyu make use of some beautiful passages from the Record of the Western Side-building to bandy jokes. The excellent ballads sung in the Peony Pavilion touch the tender heart of Daiyu.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 24</div><div class="chapter-summary">The drunken Jin Gang makes light of lucre and shows a preference for generosity. The foolish girl mislays her handkerchief and arouses mutual thoughts.</div></div>
+        </div>
+    </div>
+
+    <div class="volume-strip">
+        <div class="volume-title">Volume III (25–36)</div>
+        <div class="chapter-list">
+            <div class="chapter"><div class="chapter-title">Chapter 25</div><div class="chapter-summary">By a demoniacal art, a junior uncle and an elder brother’s wife (Baoyu and lady Feng) come across five devils. The gem of Spiritual Perception meets, in a fit of torpor, the two perfect men.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 26</div><div class="chapter-summary">On the Fengyao bridge, Xiao Hong makes known sentimental matters in equivocal language. In the Xiaoxiang lodge, Daiyu gives, while under the effects of the spring lassitude, expression to her secret feelings.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 27</div><div class="chapter-summary">In the Dicui pavilion, Baochai diverts herself with the multi-colored butterflies. Over the mound, where the flowers had been interred, Daiyu bewails their withered bloom.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 28</div><div class="chapter-summary">Jiang Yuhan lovingly presents a rubia-scented silk sash. Xue Baochai blushingly covers her musk-perfumed string of red beads.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 29</div><div class="chapter-summary">A happy man enjoys a full measure of happiness, but still prays for happiness. A beloved girl is very much loved, but yet craves for more love.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 30</div><div class="chapter-summary">Baochai avails herself of the excuse afforded her by a fan to administer a couple of raps. While Qiaoling traces, in an absent frame of mind, the outlines of the character Qiang, a looker-on appears on the scene.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 31</div><div class="chapter-summary">Baoyu allows the girl Qingwen to tear his fan so as to afford her amusement. A wedding proves to be the result of the descent of a unicorn.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 32</div><div class="chapter-summary">Xiren and Xiangyun tell their secret thoughts. Daiyu is infatuated with the living Baoyu. While trying to conceal her sense of shame and injury Jinchuan is driven by her impetuous feelings to seek death.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 33</div><div class="chapter-summary">A brother is prompted by ill-feeling to wag his tongue a bit. A depraved son receives heavy blows with a rattan cane.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 34</div><div class="chapter-summary">Daiyu loves Baoyu with extreme affection; but, on account of this affection, her female cousin gets indignant. Xue Pan commits a grave mistake; but Baochai makes this mistake a pretext to tender advice to her brother.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 35</div><div class="chapter-summary">Bai Yuchuan tastes too the lotus-leaf soup. Huang Jinying skillfully plaits the plum-blossom-knotted nets.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 36</div><div class="chapter-summary">While Xiren is busy embroidering mandarin ducks, Baoyu receives, in the Jiangyun Pavilion, an omen from a dream. Baoyu apprehends that there is a destiny in affections, when his feelings are aroused to a sense of the situation in the Pear Fragrance court.</div></div>
+        </div>
+    </div>
+
+    <div class="volume-strip">
+        <div class="volume-title">Volume IV (37–46)</div>
+        <div class="chapter-list">
+            <div class="chapter"><div class="chapter-title">Chapter 37</div><div class="chapter-summary">In the Study of Autumnal Cheerfulness is accidentally formed the Cydonia Japonica Society. In the Hengwu Court, the chrysanthemum is, on a certain night, proposed as a subject for verses.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 38</div><div class="chapter-summary">Lin Xiaoxiang carries the first prize in the poems on chrysanthemums. Xue Hengwu chaffs Baoyu by composing verses in the same style as his on the crabs.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 39</div><div class="chapter-summary">The tongue of the village old dame finds as free vent as a river that has broken its banks. The affectionate cousin makes up his mind to sift to the very bottom the story told by old goody Liu.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 40</div><div class="chapter-summary">The venerable lady Shi attends a second banquet in the garden of Broad Vista. Jin Yangyuan three times promulgates, by means of dominoes, the order to quote passages from old writers.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 41</div><div class="chapter-summary">Jia Baoyu tastes tea in the Longcui monastery. Old goody Liu gets drunk and falls asleep in the Yihong court.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 42</div><div class="chapter-summary">The Princess of Hengwu dispels, with sweet words, some insane suspicions. The inmate of Xiaoxiang puts, with excellent repartee, the final touch to the jokes made about goody Liu.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 43</div><div class="chapter-summary">Having time to amuse themselves, the Jia inmates raise, when least expected, funds to celebrate lady Feng’s birthday. In his ceaseless affection for Jinchuan, Baoyu uses, for the occasion, a pinch of earth as incense and burns it.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 44</div><div class="chapter-summary">By some inscrutable turn of affairs, lady Feng begins to feel the pangs of jealousy. Baoyu experiences joy, beyond all his expectations, when Ping’er (receives a slap from lady Feng and) has to adjust her hair.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 45</div><div class="chapter-summary">Friends interchange words of friendship. Daiyu feels dull on a windy and rainy evening, and indites verses on wind and rain.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 46</div><div class="chapter-summary">An improper man with difficulty keeps from improprieties. The maid, Yuanyang, vows to break off the marriage match.</div></div>
+        </div>
+    </div>
+
+    <div class="volume-strip">
+        <div class="volume-title">Volume V (47–56)</div>
+        <div class="chapter-list">
+            <div class="chapter"><div class="chapter-title">Chapter 47</div><div class="chapter-summary">An idiotic bully tries to be lewd and comes in for a sound thrashing. A cold-hearted fellow is prompted by a dread of trouble to betake himself to a strange place.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 48</div><div class="chapter-summary">A sensual-minded man gets into such trouble through his sensuality that he entertains the idea of going abroad. An estimable and refined girl manages, after great exertion, to compose verses at a refined meeting.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 49</div><div class="chapter-summary">White snow and red plum blossom in the crystal world. The pretty girl, fragrant with powder, cuts some meat and eats it.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 50</div><div class="chapter-summary">In the Luxue pavilion, they vie with each other in pairing verses on the scenery. In the Nuanxiang village, they compose, in beautiful style, riddles for the spring lanterns.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 51</div><div class="chapter-summary">The young maiden Xue Baoqin devises, in novel style, odes bearing on antiquities. A stupid doctor employs, in reckless manner, drugs of great strength.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 52</div><div class="chapter-summary">The beautiful Ping’er endeavors to conceal the loss of the bracelet, made of work as fine as the feelers of a shrimp. The brave Qingwen mends the down-cloak during her indisposition.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 53</div><div class="chapter-summary">In the Ning Guo mansion, sacrifices are offered to their ancestors on the last night of the year. In the Rong Guo mansion, a banquet is given on the evening of the 15th of the first moon.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 54</div><div class="chapter-summary">Dowager lady Jia does away with rotten old customs. Wang Xifeng imitates in jest (the dutiful son), by getting herself up in gaudy theatrical clothes.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 55</div><div class="chapter-summary">The stupid secondary wife, dame Zhao, needlessly loses her temper and insults her own daughter Tanchun. The perverse servant-girls are so full of malice that they look down contemptuously on their youthful mistresses.</div></div>
+            <div class="chapter"><div class="chapter-title">Chapter 56</div><div class="chapter-summary">The clever Tanchun increases their income and removes long standing abuses. The worthy Baochai preserves intact, by the display of a little intelligence, the great reputation enjoyed by the Jia family.</div></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+document.querySelectorAll('.chapter').forEach(chapter => {
+    chapter.addEventListener('click', (e) => {
+        e.stopPropagation();
+        chapter.classList.toggle('open');
+    });
+});
+</script>
+
+
+
+
+</body>
+</html>

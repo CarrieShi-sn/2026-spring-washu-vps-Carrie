@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About — Project</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        background-image: url(Lotus.jpg);
+        background-size: cover;
+        background-position: center;
+        font-family: Georgia, serif;
+
+        display: flex;
+        flex-direction: row;
+    }
+
+    /* ---------------- LEFT NAV BAR ---------------- */
+    .nav-band {
+        width: 18vh;
+        min-width: 120px;
+        height: 100vh;
+
+        background: rgba(168, 65, 205, 0.12);
+        backdrop-filter: blur(4px);
+        border-right: 1px solid rgba(255,255,255,0.25);
+
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        padding-top: 40px;
+        z-index: 5;
+    }
+
+    .nav-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-tab {
+        font-size: 20px;
+        color: white;
+        letter-spacing: 2px;
+        cursor: pointer;
+        text-orientation: upright;
+        padding: 1px;
+        position: relative;
+        transition: opacity 0.3s ease, transform 0.2s ease;
+    }
+
+    .nav-tab:hover {
+        opacity: 0.7;
+        transform: translateX(4px);
+    }
+
+    .nav-tab .dot {
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        right: 52%;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .nav-tab.active .dot {
+        opacity: 1;
+    }
+
+
+    /* ---------------- ABOUT PANEL ---------------- */
+    .about-panel {
+        position: absolute;
+
+        /* always 80% width and 80% height */
+        width: 80%;
+        height: 80vh;
+
+        /* center horizontally & vertically */
+        left: calc(18vh + (100vw - 18vh - 80%) / 2);
+        top: -100vh; /* hidden initially */
+
+        /* striped textile background */
+        background:
+            repeating-linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.22) 2px,
+                rgba(0,0,0,0.22) 1px,
+                rgba(225, 30, 30, 0.1) 4px,
+                rgba(208, 208, 227, 0.1) 8px
+            ),
+            rgba(175, 221, 218, 0.55);
+
+        backdrop-filter: blur(2px);
+        color: white;
+
+        padding: 40px;
+        transition: top 0.8s ease;
+        z-index: 4;
+    }
+
+    .about-panel.show {
+        top: calc((100vh - 90vh) / 2); /* perfect vertical centering */
+    }
+
+    /* Close button */
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 28px;
+        cursor: pointer;
+        color: white;
+        transition: opacity 0.3s ease;
+    }
+
+    .close-btn:hover {
+        opacity: 0.6;
+    }
+
+
+    /* ---------------- MOBILE RESPONSIVE ---------------- */
+    @media (max-width: 700px) {
+
+        .nav-band {
+            width: 14vh;
+            min-width: 85px;
+        }
+
+        .about-panel {
+            width: 80%;
+            height: 80%;
+            left: calc(14vh + (100vw - 14vh - 80%) / 2);
+            padding: 25px;
+        }
+
+        .close-btn {
+            font-size: 24px;
+            right: 18px;
+        }
+
+
+        p{
+            font-size: 14px;
+            font-family: Pantasia;;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- LEFT NAV BAR -->
+<div class="nav-band">
+    <div class="nav-container">
+        <div class="nav-tab" data-page="book about" onclick="window.location.href='Book about.html'">
+            <span class="label">Dream of the Red Chamber</span>
+            <span class="dot"></span>
+        </div>
+
+        <div class="nav-tab" data-page="about">
+            <span class="label">About</span>
+            <span class="dot"></span>
+        </div>
+
+        <div class="nav-tab" data-page="curtain" onclick="window.location.href='curtain.html'">
+            <span class="label">Person</span>
+            <span class="dot"></span>
+        </div>
+
+        <div class="nav-tab" data-page="chapter-mode" onclick="window.location.href='Chapter.html'">
+            <span class="label">Chapter</span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>
+
+
+<!-- ABOUT PANEL -->
+<div class="about-panel" id="aboutPanel">
+
+    <div class="close-btn" onclick="window.location.href='curtain.html'">×</div>
+
+<h1 style="font-size: 32px; letter-spacing: 2px; margin-bottom: 20px;">
+    About This Project
+</h1>
+
+<p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+    This site is an ongoing study—part visual archive, part digital interpretation.
+    Its goal is not to retell the novel, but to honor its atmosphere:
+    the quiet drift of curtains, the weight of unspoken feeling,
+    and the beauty of a world already beginning to fade.
+</p>
+
+<p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+    Thank you for stepping inside.
+</p>
+
+
+<script>
+/* Highlight the About tab */
+document.addEventListener("DOMContentLoaded", () => {
+    const current = "about";
+    document.querySelectorAll(".nav-tab").forEach(tab => {
+        if (tab.dataset.page === current) {
+            tab.classList.add("active");
+        }
+    });
+
+    /* Slide-down animation */
+    setTimeout(() => {
+        document.getElementById("aboutPanel").classList.add("show");
+    }, 50);
+});
+</script>
+
+</body>
+</html>

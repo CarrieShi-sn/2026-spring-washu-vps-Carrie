@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>About —Dream of the Red Chamber</title>
+
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        background-image: url(Lotus.jpg);
+        background-size: cover;
+        background-position: center;
+        font-family: Georgia, serif;
+
+        display: flex;
+        flex-direction: row;
+    }
+
+    /* ---------------- LEFT NAV BAR ---------------- */
+    .nav-band {
+        width: 18vh;
+        min-width: 120px;
+        height: 100vh;
+
+        background: rgba(168, 65, 205, 0.12);
+        backdrop-filter: blur(4px);
+        border-right: 1px solid rgba(255,255,255,0.25);
+
+        display: flex;
+        align-items: baseline;
+        justify-content: center;
+        padding-top: 40px;
+        z-index: 5;
+    }
+
+    .nav-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-tab {
+        font-size: 20px;
+        color: white;
+        letter-spacing: 2px;
+        cursor: pointer;
+        text-orientation: upright;
+        padding: 1px;
+        position: relative;
+        transition: opacity 0.3s ease, transform 0.2s ease;
+    }
+
+    .nav-tab:hover {
+        opacity: 0.7;
+        transform: translateX(4px);
+    }
+
+    .nav-tab .dot {
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        position: absolute;
+        right: 47%;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .nav-tab.active .dot {
+        opacity: 1;
+    }
+
+    /* Hide dot forcibly when suppressed */
+    .hide-dot .dot {
+        opacity: 0 !important;
+    }
+
+
+    /* ---------------- ABOUT PANEL ---------------- */
+    .about-panel {
+        position: absolute;
+        width: 80%;
+        height: 80vh;
+
+        left: calc(18vh + (100vw - 18vh - 80%) / 2);
+        top: -100vh;
+
+        background:
+            repeating-linear-gradient(
+                to bottom,
+                rgba(37, 19, 205, 0.22) 2px,
+                rgba(0,0,0,0.22) 1px,
+                rgba(225, 30, 30, 0.1) 4px,
+                rgba(21, 21, 203, 0.1) 8px
+            ),
+            rgba(186, 193, 206, 0.55);
+
+        backdrop-filter: blur(2px);
+        color: white;
+
+        padding: 40px;
+        transition: top 0.8s ease;
+        z-index: 4;
+    }
+
+    .about-panel.show {
+        top: calc((100vh - 90vh) / 2);
+    }
+
+    /* Close button */
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 28px;
+        cursor: pointer;
+        color: white;
+        transition: opacity 0.3s ease;
+    }
+
+    .close-btn:hover {
+        opacity: 0.6;
+    }
+
+
+    /* ---------------- MOBILE RESPONSIVE ---------------- */
+    @media (max-width: 700px) {
+
+        .nav-band {
+            width: 14vh;
+            min-width: 85px;
+        }
+
+        .about-panel {
+            width: 80%;
+            height: 80%;
+            left: calc(14vh + (100vw - 14vh - 80%) / 2);
+            padding: 25px;
+        }
+
+        .close-btn {
+            font-size: 24px;
+            right: 18px;
+        }
+
+        p{
+            font-size: 14px;
+            font-family: Pantasia;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<!-- LEFT NAV BAR -->
+<div class="nav-band">
+    <div class="nav-container">
+
+        <!-- BOOK TAB (highlight this one on the About page) -->
+        <div class="nav-tab active hide-dot" data-page="book about" onclick="window.location.href='Book about.html'">
+            <span class="label">Dream of the Red Chamber</span>
+            <span class="dot"></span>
+        </div>
+
+        <!-- ABOUT TAB (NOT highlighted on this page) -->
+        <div class="nav-tab" data-page="about" onclick="window.location.href='About.html'">
+            <span class="label">About</span>
+            <span class="dot"></span>
+        </div>
+
+        <div class="nav-tab" data-page="curtain" onclick="window.location.href='curtain.html'">
+            <span class="label">Person</span>
+            <span class="dot"></span>
+        </div>
+
+        <div class="nav-tab" data-page="chapter-mode" onclick="window.location.href='Chapter.html'">
+            <span class="label">Chapter</span>
+            <span class="dot"></span>
+        </div>
+    </div>
+</div>
+
+
+<!-- ABOUT PANEL -->
+<div class="about-panel" id="aboutPanel">
+
+    <div class="close-btn" onclick="window.location.href='curtain.html'">×</div>
+
+<h1 style="font-size: 32px; letter-spacing: 2px; margin-bottom: 20px;">
+    Dream of the Red Chamber
+</h1>
+
+<p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+    Title: Chinese architecture provides for the mass of the population low, one-story buildings. A mansion with a second story is called lou —-
+and Hung Lou stands for "Red Two-Story Building." According to Buddhist usage, it is also a metaphor for such_concepts as worldly
+glory, luxury, wealth, and honors — similar to the Buddhist interpretation of "red dust" as "worldly strivings," "the material world." 
+</p>
+
+<p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+    Period: The text does not mention any particular date. However, there
+are implicit indications that the action takes place during the Chinp
+Dynasty (1644-1912). Official titles and ranks correspond to those o the last dynasty, and Manchuria could be referred to as a provinc
+only since the Ching Dynasty. According to the findings of Dr. Hi
+Shih, the author Tsao Hsueh Chin wrote about contemporary event,
+and his own experiences. Internal evidence indicates that the mail
+narrative covers the period between 1729_and 1737. 
+</p>
+
+<p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+    Place: The text speaks alternately of the capital and Chin ling. Th<:
+capital under the Ching Dynasty was Peking. Chin ling, which means
+"golden tombs," is probably an allusion to the well-known imperial burial places in the vicinity of Peking. The mountains outside the city
+gates, where the Prince Hermit lives in seclusion, suggest the famous
+western mountains near Peking, with their splendid temples. 
+</p>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* Show panel animation */
+    setTimeout(() => {
+        document.getElementById("aboutPanel").classList.add("show");
+    }, 50);
+
+});
+</script>
+
+</body>
+</html>
