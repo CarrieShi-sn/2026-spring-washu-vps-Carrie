@@ -3,51 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Dream of the Red Chamber</title>
-
 <style>
+/* ---------- BASIC STYLING ---------- */
 body {
     margin: 0;
     font-family: Georgia, serif;
-    color: white;
-    background-image: url(Lotus.jpg);
+    overflow-x: hidden;
+    background-image: url('Lotus.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-
-    overflow-x: visible; /* allow curtains to swing out */
 }
 
 /* ---------- HERO ---------- */
 .hero {
     height: 100vh;
     position: relative;
-    width: 100%;
-    position: relative;
-    perspective: 1600px;
-    overflow: visible; /* FIX: no cropping */
+    perspective: 1200px;
+    overflow: hidden;
 }
 
-/* Titles */
-.title {
-    position: absolute;
-    top: 30px;
-    left: 30px;
-    font-size: 36px;
-    letter-spacing: 6px;
-    text-shadow: 0 0 25px rgba(0,0,0,0.8);
-    font-family: Libian SC;
-    z-index: 50;
-}
-
-.hero h1 {
-    position: absolute;
-    bottom: 30px;
-    left: 30px;
-    text-shadow: 0 0 25px rgba(0,0,0,0.8);
-    font-family: Pantasia-Italic;
-    z-index: 50;
-}
-
+/* ---------- CURTAINS ---------- */
 .stage {
     display: flex;
     height: 100%;
@@ -55,215 +31,77 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-
-    padding: 0;              /* ✅ no margins */
-    box-sizing: border-box;
 }
 
-/* ---------- CURTAINS ---------- */
 .curtain {
-    flex: 1 1 0;
+    flex: 1;
     min-width: 0;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(178,207,236,0.4), rgba(223,203,223,0.4));
+    transform-origin: top center;
+    transition: transform 0.3s ease-out;
     display: flex;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    transform-style: preserve-3d;
-    transform: scaleX(1.05);
+    align-items: flex-start;
+    position: relative;
 }
 
-.curtain {
-    flex: 1 1 0;
-    min-width: 0;
-
-    height: 100%;           /* ensures full vertical fill */
-}
-
-/* sides */
-.left {
-    background: rgba(255,255,255,0.08);
-    transform-origin: left center;
-}
-
-.right {
-    background: linear-gradient(to left, #b2cfec, #dfcbdf, rgba(226,231,234,0.7));
-    color: #5c6a85;
-    transform-origin: right center;
-}
-
-/* ---------- STRONG WIND ---------- */
-@keyframes swingLeft {
-    0%   { transform: rotateY(0deg) scaleX(1); }
-    20%  { transform: rotateY(-25deg) scaleX(1.02); }
-    40%  { transform: rotateY(15deg) scaleX(0.98); }
-    60%  { transform: rotateY(-18deg) scaleX(1.01); }
-    80%  { transform: rotateY(10deg) scaleX(0.99); }
-    100% { transform: rotateY(0deg) scaleX(1); }
-}
-
-@keyframes swingRight {
-    0%   { transform: rotateY(0deg) scaleX(1); }
-    20%  { transform: rotateY(25deg) scaleX(1.02); }
-    40%  { transform: rotateY(-15deg) scaleX(0.98); }
-    60%  { transform: rotateY(18deg) scaleX(1.01); }
-    80%  { transform: rotateY(-10deg) scaleX(0.99); }
-    100% { transform: rotateY(0deg) scaleX(1); }
-}
-
-/* apply animation */
-.left {
-    animation: swingLeft 3.5s ease-in-out infinite;
-}
-
-.right {
-    animation: swingRight 3.8s ease-in-out infinite;
-}
-
-/* desync */
-.curtain:nth-child(1) { animation-delay: 0s; }
-.curtain:nth-child(2) { animation-delay: 0.7s; }
-.curtain:nth-child(3) { animation-delay: 1.3s; }
-.curtain:nth-child(4) { animation-delay: 0.2s; }
-.curtain:nth-child(5) { animation-delay: 1.1s; }
-.curtain:nth-child(6) { animation-delay: 0.5s; }
-.curtain:nth-child(7) { animation-delay: 0.9s; }
-.curtain:nth-child(8) { animation-delay: 0.3s; }
-.curtain:nth-child(9) { animation-delay: 1.6s; }
-.curtain:nth-child(10){ animation-delay: 0.4s; }
-.curtain:nth-child(11){ animation-delay: 1.2s; }
-.curtain:nth-child(12){ animation-delay: 0.6s; }
-
-/* ---------- TEXT ---------- */
-.name {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.english {
-    font-size: 14px;
-    letter-spacing: 1px;
-}
-
-.chinese {
+.curtain .name {
     writing-mode: vertical-rl;
     text-orientation: upright;
-    font-size: 28px;
-    letter-spacing: 6px;
     font-family: Libian SC;
+    font-size: 26px;
+    color: #333;
+    margin-top: 20px;
+    user-select: none;
 }
 
-/* ---------- SCROLL ---------- */
-section {
-    padding: 100px 10%;
-}
-
-.intro {
-    background: rgba(0,0,0,0.5);
-    backdrop-filter: blur(10px);
-}
-
-.characters {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-}
-
-.card {
-    background: rgba(255,255,255,0.08);
-    padding: 30px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    transition: transform 0.4s ease;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-}
-
-.flowers {
-    background: linear-gradient(to bottom, rgba(0,0,0,0.7), transparent);
-}
-
-/* fade */
-.fade {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 1s ease;
-}
-
-.fade.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* ---------- STRONG WIND EFFECT ---------- */
 </style>
 </head>
-
 <body>
 
 <section class="hero">
 
-<div class="title">红 楼 金 陵 十 二 钗</div>
-<h1>Dream of the Red Chamber</h1>
-
 <div class="stage">
-
-<div class="curtain left"><div class="name"><span class="english">Lin Daiyu</span><span class="chinese">林黛玉</span></div></div>
-<div class="curtain left"><div class="name"><span class="english">Xue Baochai</span><span class="chinese">薛宝钗</span></div></div>
-<div class="curtain left"><div class="name"><span class="english">Jia Yuanchun</span><span class="chinese">贾元春</span></div></div>
-<div class="curtain left"><div class="name"><span class="english">Jia Tanchun</span><span class="chinese">贾探春</span></div></div>
-<div class="curtain left"><div class="name"><span class="english">Shi Xiangyun</span><span class="chinese">史湘云</span></div></div>
-<div class="curtain left"><div class="name"><span class="english">Miaoyu</span><span class="chinese">妙玉</span></div></div>
-
-<div class="curtain right"><div class="name"><span class="english">Jia Yingchun</span><span class="chinese">贾迎春</span></div></div>
-<div class="curtain right"><div class="name"><span class="english">Jia Xichun</span><span class="chinese">贾惜春</span></div></div>
-<div class="curtain right"><div class="name"><span class="english">Wang Xifeng</span><span class="chinese">王熙凤</span></div></div>
-<div class="curtain right"><div class="name"><span class="english">Qin Keqing</span><span class="chinese">秦可卿</span></div></div>
-<div class="curtain right"><div class="name"><span class="english">Li Wan</span><span class="chinese">李纨</span></div></div>
-<div class="curtain right"><div class="name"><span class="english">Jia Qiaojie</span><span class="chinese">贾巧姐</span></div></div>
-
-</div>
-</section>
-
-<section class="intro fade">
-<p>
-A story of love, illusion, and decline.  
-Beauty blooms briefly—like flowers destined to fall.
-</p>
-</section>
-
-<section class="characters fade">
-<div class="card">
-<h2>Lin Daiyu 林黛玉</h2>
-<p>Flower: Peach Blossom</p>
-<p>Fragile and poetic, her life mirrors falling petals.</p>
+    <div class="curtain"><div class="name">Lin Daiyu 林黛玉</div></div>
+    <div class="curtain"><div class="name">Xue Baochai 薛宝钗</div></div>
+    <div class="curtain"><div class="name">Jia Yuanchun 贾元春</div></div>
+    <div class="curtain"><div class="name">Jia Tanchun 贾探春</div></div>
+    <div class="curtain"><div class="name">Shi Xiangyun 史湘云</div></div>
+    <div class="curtain"><div class="name">Miaoyu 妙玉</div></div>
+    <div class="curtain"><div class="name">Jia Yingchun 贾迎春</div></div>
+    <div class="curtain"><div class="name">Jia Xichun 贾惜春</div></div>
+    <div class="curtain"><div class="name">Wang Xifeng 王熙凤</div></div>
+    <div class="curtain"><div class="name">Qin Keqing 秦可卿</div></div>
+    <div class="curtain"><div class="name">Li Wan 李纨</div></div>
+    <div class="curtain"><div class="name">Jia Qiaojie 贾巧姐</div></div>
 </div>
 
-<div class="card">
-<h2>Xue Baochai 薛宝钗</h2>
-<p>Flower: Peony</p>
-<p>Composed and restrained, shaped by order and fate.</p>
-</div>
 </section>
 
-<section class="flowers fade">
-<h2>Flowers & Fate</h2>
-<p>
-Each woman is a flower—symbolizing beauty, personality, and destiny.
-</p>
-</section>
-
+<!-- ---------- SCRIPT: CURSOR WIND ---------- -->
 <script>
-const sections = document.querySelectorAll(".fade");
+const curtains = document.querySelectorAll('.curtain');
+const maxSwing = 15; // max degrees of swing for subtle motion
 
-window.addEventListener("scroll", () => {
-    sections.forEach(sec => {
-        const top = sec.getBoundingClientRect().top;
-        if (top < window.innerHeight - 100) {
-            sec.classList.add("visible");
-        }
+document.addEventListener('mousemove', e => {
+    const stageRect = document.querySelector('.stage').getBoundingClientRect();
+    const mouseX = e.clientX - stageRect.left;
+    const stageWidth = stageRect.width;
+
+    curtains.forEach((curtain, index) => {
+        const curtainCenter = curtain.offsetLeft + curtain.offsetWidth/2;
+        const distance = Math.abs(mouseX - curtainCenter);
+        const influence = Math.max(0, 1 - distance/stageWidth*3); // nearby curtains respond more
+        const angle = maxSwing * influence * ((mouseX - curtainCenter)/stageWidth*2);
+        curtain.style.transform = `rotateZ(${angle}deg)`;
     });
+});
+
+// Return to rest when mouse leaves stage
+document.querySelector('.stage').addEventListener('mouseleave', () => {
+    curtains.forEach(c => c.style.transform = 'rotateZ(0deg)');
 });
 </script>
 
