@@ -1,0 +1,576 @@
+:root {
+    --nav-width: 10%;
+    --nav-min-width: 120px;
+
+    --text-white: white;
+    --muted-1: #9ca3b3;
+    --muted-2: #8f95a3;
+    --muted-3: #7c8291;
+    --muted-4: #7a8194;
+    --muted-5: #6d7487;
+    --muted-6: #5e667a;
+    --muted-7: #3f4657;
+
+    --panel-bg: rgba(239, 243, 243, 0.65);
+    --nav-bg: rgba(168, 65, 205, 0.12);
+    --dim-bg: rgba(0, 0, 0, 0.45);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: Georgia, serif;
+    background-image: url("Lotus.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+/* ---------------- NAV ---------------- */
+.nav-band {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 20;
+
+    width: var(--nav-width);
+    min-width: var(--nav-min-width);
+    height: 100vh;
+    padding-top: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+
+    background: var(--nav-bg);
+    backdrop-filter: blur(4px);
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.nav-tab {
+    position: relative;
+    padding: 1px;
+    cursor: pointer;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--text-white);
+    transition: opacity 0.3s ease, transform 0.2s ease;
+}
+
+.nav-tab:hover {
+    opacity: 0.7;
+    transform: translateX(4px);
+}
+
+.nav-tab .dot {
+    position: absolute;
+    top: 50%;
+    right: 40%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.nav-tab.active .dot,
+.about-trigger.active .dot {
+    opacity: 1;
+}
+
+/* ---------------- LAYOUT ---------------- */
+.content {
+    position: relative;
+    margin-left: var(--nav-width);
+    width: calc(100% - var(--nav-width));
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(13, 1fr);
+}
+
+.person-image {
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 58%;
+    height: 100%;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-color: rgba(119, 140, 213, 0.15);
+    background-blend-mode: color-burn;
+
+    pointer-events: none;
+
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 18%,
+        black 82%,
+        transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        black 18%,
+        black 82%,
+        transparent 100%
+    );
+}
+
+.right-side {
+    grid-column: 9 / span 5;
+    z-index: 2;
+
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    padding: 36px 34px 30px;
+    overflow: hidden;
+
+    background: var(--panel-bg);
+    backdrop-filter: blur(2px);
+    box-shadow: -10px 0 30px rgba(90, 86, 102, 0.08);
+}
+
+/* ---------------- TOP PANEL ---------------- */
+.top-panel {
+    flex: 0 0 40%;
+    min-height: 0;
+    padding-bottom: 18px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    border-bottom: 1px solid rgba(120, 120, 140, 0.18);
+}
+
+.character-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+}
+
+.character-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.character-mark {
+    margin: 0 0 10px;
+    font-family: "Libian SC", serif;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 26px;
+    color: var(--muted-1);
+}
+
+.character-name {
+    margin: 0;
+    font-family: Pantasia, serif;
+    font-size: 34px;
+    line-height: 1.1;
+    letter-spacing: 2px;
+    color: var(--muted-6);
+}
+
+.character-subtitle {
+    margin-top: 10px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted-1);
+}
+
+.curtain-link {
+    position: relative;
+    width: fit-content;
+    margin-top: 22px;
+    z-index: 100;
+
+    font-size: 15px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    color: var(--muted-1);
+
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.curtain-link::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 30px;
+    margin-top: -23px;
+
+    background: linear-gradient(
+        to right,
+        rgba(122, 129, 148, 0.75),
+        rgba(194, 110, 129, 0.15)
+    );
+    opacity: 0.3;
+
+    transform-origin: left center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.curtain-link:hover {
+    color: #ffffff;
+    transform: translateX(4px);
+    z-index: 100;
+}
+
+.curtain-link:hover::after {
+    transform: scaleX(0.95);
+    opacity: 0.4;
+
+    background: linear-gradient(
+        to right,
+        rgba(151, 90, 98, 0.75),
+        rgba(106, 115, 195, 0.15)
+    );
+}
+
+/* ---------------- Counterpart PANEL ---------------- */
+.counterpart-link {
+    flex-shrink: 0;
+    align-self: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 68px;
+
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-size: 40px;
+    line-height: 0.72;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 200;
+    opacity: 0.8;
+    text-shadow: #4fa6aa 0px 0px 20px;
+
+    background: transparent;
+    border: none;
+    border-radius: 0;
+
+    transform: scaleY(2.8);
+    transform-origin: center;
+
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.counterpart-link:hover {
+    opacity: 0.72;
+    transform: scaleY(2.8) translateX(2px);
+}
+
+.counterpart-link:focus-visible {
+    outline: none;
+    opacity: 0.72;
+}
+
+/* ---------------- POEM PANEL ---------------- */
+.poem-panel {
+    flex: 0 0 60%;
+    max-height: 60%;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    padding-top: 28px;
+
+    overflow: hidden;
+}
+
+/* title stays fixed */
+.poem-title {
+    flex-shrink: 0;
+}
+
+/* ONLY this scrolls */
+.poem-scroll {
+    flex: 1;
+    min-height: 0;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding-right: 10px;
+    margin-top: 10px;
+
+    scroll-behavior: smooth;
+}
+
+/* scrollbar styling */
+.poem-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.poem-scroll::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.3);
+    border-radius: 3px;
+}
+
+.poem-scroll {
+    mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        black 8%,
+        black 92%,
+        transparent 100%
+    );
+}
+
+.poem-divider {
+    border: none;
+    height: 2px;
+    margin: 14px 0 18px 0;
+
+    background: linear-gradient(
+        to right,
+        rgba(194, 110, 129, 0.2),
+        rgba(122, 129, 148, 0.6),
+        rgba(194, 110, 129, 0.2)
+    );
+
+    opacity: 0.6;
+}
+
+.englishtitle {
+    font-family: Pantasia, serif;
+    font-size: 26px;
+    letter-spacing: 0.8px;
+    color: #937f9097;
+    text-shadow: 0px 0px 4px rgba(232, 175, 186, 0.5);
+    line-height: 150%;
+}
+
+.chinesetitle {
+    font-family: "Libian SC", serif;
+    font-size: 26px;
+    letter-spacing: 10px;
+    color: var(--muted-1);
+    text-shadow: 0px 0px 4px rgba(200, 126, 126, 0.3);
+}
+
+.poem-block {
+    margin-bottom: 18px;
+}
+
+.chinese {
+    font-family: "Libian SC", serif;
+    font-size: 26px;
+    letter-spacing: 10px;
+    color: var(--muted-1);
+    text-shadow: 0px 0px 4px rgba(200, 126, 126, 0.3);
+}
+
+.pinyin {
+    font-family: Pantasia, serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    color: var(--muted-2);
+    text-shadow: 0px 0px 4px rgba(175, 221, 218, 0.9);
+}
+
+.english {
+    font-family: Pantasia, serif;
+    font-size: 16px;
+    letter-spacing: 0.8px;
+    color: #7d6479;
+    text-shadow: 0px 0px 4px rgba(232, 175, 186, 0.5);
+    line-height: 150%;
+}
+
+/* ---------------- ABOUT MODAL ---------------- */
+.page-dim {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+
+    background: var(--dim-bg);
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.45s ease;
+}
+
+.page-dim.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.about-panel {
+    position: fixed;
+    top: -100vh;
+    left: calc(var(--nav-width) + (100vw - var(--nav-width) - 80%) / 2);
+    z-index: 40;
+
+    width: 80%;
+    height: 80vh;
+    padding: 40px;
+
+    color: white;
+    backdrop-filter: blur(2px);
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0.22) 2px,
+            rgba(0, 0, 0, 0.22) 1px,
+            rgba(225, 30, 30, 0.1) 4px,
+            rgba(208, 208, 227, 0.1) 8px
+        ),
+        rgba(175, 221, 218, 0.55);
+
+    transition: top 0.8s ease;
+}
+
+.about-panel.show {
+    top: 10vh;
+}
+
+body.about-open .person-tab .dot {
+    opacity: 0 !important;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+
+    font-size: 28px;
+    color: white;
+    cursor: pointer;
+
+    transition: opacity 0.3s ease;
+}
+
+.close-btn:hover {
+    opacity: 0.6;
+}
+
+.about-title {
+    margin: 0 0 20px;
+    font-size: 32px;
+    letter-spacing: 2px;
+}
+
+.about-text {
+    max-width: 80%;
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+@media (max-width: 900px) {
+    :root {
+        --nav-width: 14%;
+        --nav-min-width: 90px;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .person-image {
+        width: 100%;
+        opacity: 0.4;
+    }
+
+    .right-side {
+        grid-column: 1;
+        width: 58%;
+        min-width: 320px;
+        margin-left: auto;
+    }
+}
+
+@media (max-width: 700px) {
+    .right-side {
+        width: 100%;
+        min-width: 0;
+        padding: 26px 22px 24px;
+    }
+
+    .top-panel {
+        flex: 0 0 40%;
+    }
+
+    .poem-panel {
+        flex: 0 0 60%;
+        max-height: 60%;
+    }
+
+    .character-mark {
+        font-size: 40px;
+    }
+
+    .character-name {
+        font-size: 28px;
+    }
+
+    .poem-title {
+        font-size: 26px;
+    }
+
+    .chinese {
+        font-size: 22px;
+    }
+
+    .about-panel {
+        width: 80%;
+        height: 80%;
+        padding: 25px;
+    }
+
+    .close-btn {
+        right: 18px;
+        font-size: 24px;
+    }
+
+    .about-text {
+        font-size: 14px;
+        font-family: Pantasia, serif;
+    }
+
+    .character-header {
+        gap: 14px;
+    }
+
+    .counterpart-link {
+        width: 38px;
+        height: 38px;
+        font-size: 20px;
+    }
+}

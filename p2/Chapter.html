@@ -5,6 +5,16 @@
 <title>Chapter Mode — Dream of the Red Chamber</title>
 
 <style>
+:root {
+    --nav-width: 140px;
+    --nav-bg: rgba(168, 65, 205, 0.12);
+    --dim-bg: rgba(0, 0, 0, 0.45);
+}
+
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     height: 100vh;
@@ -13,21 +23,30 @@ body {
     background-size: cover;
     background-position: center;
     font-family: Georgia, serif;
-    display: flex;
+}
+
+body.modal-open {
+    overflow: hidden;
 }
 
 /* ---------------- NAV ---------------- */
 .nav-band {
-    width: 18vh;
-    min-width: 120px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 50;
+
+    width: 10%;
     height: 100vh;
-    background: rgba(168, 65, 205, 0.12);
-    backdrop-filter: blur(4px);
-    border-right: 1px solid rgba(255,255,255,0.25);
+    padding-top: 40px;
+
     display: flex;
     justify-content: center;
-    padding-top: 40px;
-    box-sizing: border-box;
+    align-items: baseline;
+
+    background: var(--nav-bg);
+    backdrop-filter: blur(4px);
+    border-right: 1px solid rgba(255,255,255,0.25);
 }
 
 .nav-container {
@@ -37,12 +56,15 @@ body {
 }
 
 .nav-tab {
+    position: relative;
+    padding: 1px;
+
     font-size: 20px;
     color: white;
     letter-spacing: 2px;
     cursor: pointer;
-    position: relative;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+
+    transition: opacity 0.3s ease, transform 0.2s ease;
 }
 
 .nav-tab:hover {
@@ -51,29 +73,109 @@ body {
 }
 
 .nav-tab .dot {
+    position: absolute;
+    top: 50%;
+    right: 40%;
+    transform: translateY(-50%);
+
     width: 6px;
     height: 6px;
     background: white;
     border-radius: 50%;
-    position: absolute;
-    right: 40%;
-    top: 50%;
-    transform: translateY(-50%);
     opacity: 0;
-    transition: opacity 0.4s ease;
+
+    transition: opacity 0.3s ease;
 }
 
-.nav-tab.active .dot {
+.nav-tab.active .dot,
+.about-trigger.active .dot {
     opacity: 1;
+}
+
+/* hide Chapter dot while About is open */
+body.about-open #chapterTab .dot {
+    opacity: 0 !important;
+}
+
+/* ---------------- ABOUT MODAL ---------------- */
+.page-dim {
+    position: fixed;
+    inset: 0;
+    background: var(--dim-bg);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease;
+    z-index: 60;
+}
+
+.page-dim.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.about-panel {
+    position: fixed;
+    top: -100vh;
+    left: calc(var(--nav-width) + (100vw - var(--nav-width) - 80%) / 2);
+    z-index: 70;
+
+    width: 80%;
+    height: 80vh;
+    padding: 40px;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(0,0,0,0.22) 2px,
+            rgba(0,0,0,0.22) 1px,
+            rgba(225, 30, 30, 0.1) 4px,
+            rgba(208, 208, 227, 0.1) 8px
+        ),
+        rgba(175, 221, 218, 0.55);
+
+    backdrop-filter: blur(2px);
+    color: white;
+    transition: top 0.8s ease;
+}
+
+.about-panel.show {
+    top: 10vh;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    cursor: pointer;
+    color: white;
+    transition: opacity 0.3s ease;
+}
+
+.close-btn:hover {
+    opacity: 0.6;
+}
+
+.about-title {
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin: 0 0 20px;
+}
+
+.about-text {
+    line-height: 1.7;
+    font-size: 16px;
+    max-width: 80%;
+    margin-top: 18px;
 }
 
 /* ---------------- MAIN CONTENT ---------------- */
 .chapter-area {
-    width: calc(100vw - 18vh);
+    margin-left: 10%;
+    width: calc(100vw - var(--nav-width));
     height: 100vh;
     overflow-y: auto;
     padding: 0;
-    box-sizing: border-box;
 }
 
 .chapter-area::-webkit-scrollbar {
@@ -85,7 +187,6 @@ body {
     width: 100%;
     min-height: 20vh;
     padding: 22px 28px;
-    box-sizing: border-box;
 
     background: linear-gradient(
         to right,
@@ -106,7 +207,8 @@ body {
         background 0.8s ease;
 }
 
-.volume-strip:hover {
+.volume-strip:hover,
+.volume-strip.open {
     transform: translateX(12px);
     filter: brightness(1.1);
     background: linear-gradient(
@@ -126,7 +228,7 @@ body {
     transition: opacity 0.6s ease;
 }
 
-/* ---------------- CHAPTERS APPEAR SLOWLY ON HOVER ---------------- */
+/* ---------------- CHAPTERS OPEN ON CLICK ---------------- */
 .chapter-list {
     opacity: 0;
     max-height: 0;
@@ -136,7 +238,7 @@ body {
         max-height 1s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.volume-strip:hover .chapter-list {
+.volume-strip.open .chapter-list {
     opacity: 1;
     max-height: 2000px;
 }
@@ -151,21 +253,20 @@ body {
         opacity 0.7s ease;
 }
 
-/* staggered reveal */
-.volume-strip:hover .chapter:nth-child(1)  { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(2)  { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(3)  { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(4)  { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(5)  { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(6)  { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(7)  { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(8)  { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(9)  { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(10) { transition-delay: 0.1; }
-.volume-strip:hover .chapter:nth-child(11) { transition-delay: 0.1s; }
-.volume-strip:hover .chapter:nth-child(12) { transition-delay: 0.1; }
+.volume-strip.open .chapter:nth-child(1)  { transition-delay: 0.06s; }
+.volume-strip.open .chapter:nth-child(2)  { transition-delay: 0.08s; }
+.volume-strip.open .chapter:nth-child(3)  { transition-delay: 0.10s; }
+.volume-strip.open .chapter:nth-child(4)  { transition-delay: 0.12s; }
+.volume-strip.open .chapter:nth-child(5)  { transition-delay: 0.14s; }
+.volume-strip.open .chapter:nth-child(6)  { transition-delay: 0.16s; }
+.volume-strip.open .chapter:nth-child(7)  { transition-delay: 0.18s; }
+.volume-strip.open .chapter:nth-child(8)  { transition-delay: 0.20s; }
+.volume-strip.open .chapter:nth-child(9)  { transition-delay: 0.22s; }
+.volume-strip.open .chapter:nth-child(10) { transition-delay: 0.24s; }
+.volume-strip.open .chapter:nth-child(11) { transition-delay: 0.26s; }
+.volume-strip.open .chapter:nth-child(12) { transition-delay: 0.28s; }
 
-.volume-strip:hover .chapter {
+.volume-strip.open .chapter {
     transform: translateX(0);
     opacity: 1;
 }
@@ -173,7 +274,7 @@ body {
 .chapter-title {
     font-size: 18px;
     color: #6f8b9c;
-    text-shadow: 0 0 3px rgba(83, 89, 102, 0.5);  
+    text-shadow: 0 0 3px rgba(83, 89, 102, 0.5);
     margin-bottom: 4px;
     cursor: pointer;
     font-family: Pantasia;
@@ -183,7 +284,6 @@ body {
 /* ---------------- SUMMARY: SHOW ON CLICK ---------------- */
 .chapter-summary {
     font-size: 16px;
-    line-height: 1.5;
     color: #6f8b9c;
     text-shadow: 0 0 1px rgba(119, 133, 208, 0.4);
     line-height: 150%;
@@ -204,13 +304,13 @@ body {
 
 /* ---------------- MOBILE ---------------- */
 @media (max-width: 700px) {
-    .nav-band {
-        width: 14vh;
-        min-width: 85px;
+    :root {
+        --nav-width: 100px;
     }
 
     .chapter-area {
-        width: calc(100vw - 14vh);
+        margin-left: var(--nav-width);
+        width: calc(100vw - var(--nav-width));
     }
 
     .volume-strip {
@@ -218,8 +318,9 @@ body {
         padding: 18px 20px;
     }
 
-    .volume-strip:hover {
-        transform: none;
+    .volume-strip:hover,
+    .volume-strip.open {
+        transform: translateX(12px);
     }
 
     .volume-title {
@@ -233,11 +334,79 @@ body {
     .chapter-summary {
         font-size: 13px;
     }
+
+    .about-panel {
+        width: 80%;
+        height: 80%;
+        left: calc(var(--nav-width) + (100vw - var(--nav-width) - 80%) / 2);
+        padding: 25px;
+    }
+
+    .close-btn {
+        font-size: 24px;
+        right: 18px;
+    }
+
+    .about-text {
+        font-size: 14px;
+        font-family: Pantasia, serif;
+    }
+
+    .character-link {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    transition: opacity 0.25s ease, color 0.25s ease;
+}
+
+.character-link:hover {
+    opacity: 0.75;
+    color: #5f7f92;
+}
 }
 </style>
+
+
 </head>
 
 <body>
+
+<!-- ABOUT MODAL -->
+<div class="page-dim" id="pageDim"></div>
+
+<div class="about-panel" id="aboutPanel">
+    <div class="close-btn" id="closeAbout">×</div>
+
+    <h1 style="font-size: 32px; letter-spacing: 2px; margin-bottom: 20px;">
+        Dream of the Red Chamber
+    </h1>
+
+    <p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+        Title: Chinese architecture provides for the mass of the population low, one-story buildings. A mansion with a second story is called lou —-
+    and Hung Lou stands for "Red Two-Story Building." According to Buddhist usage, it is also a metaphor for such_concepts as worldly
+    glory, luxury, wealth, and honors — similar to the Buddhist interpretation of "red dust" as "worldly strivings," "the material world." 
+    </p>
+
+    <p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+        Period: The text does not mention any particular date. However, there
+    are implicit indications that the action takes place during the Chinp
+    Dynasty (1644-1912). Official titles and ranks correspond to those o the last dynasty, and Manchuria could be referred to as a provinc
+    only since the Ching Dynasty. According to the findings of Dr. Hi
+    Shih, the author Tsao Hsueh Chin wrote about contemporary event,
+    and his own experiences. Internal evidence indicates that the mail
+    narrative covers the period between 1729_and 1737. 
+    </p>
+
+    <p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+        Place: The text speaks alternately of the capital and Chin ling. Th<:
+    capital under the Ching Dynasty was Peking. Chin ling, which means
+    "golden tombs," is probably an allusion to the well-known imperial burial places in the vicinity of Peking. The mountains outside the city
+    gates, where the Prince Hermit lives in seclusion, suggest the famous
+    western mountains near Peking, with their splendid temples. 
+    </p>
+    </div>
 
 <!-- NAV -->
 <div class="nav-band">
@@ -247,17 +416,17 @@ body {
             <span class="dot"></span>
         </div>
 
-        <div class="nav-tab" onclick="window.location.href='About.html'">
+        <div class="nav-tab about-trigger" id="aboutTab">
             About
             <span class="dot"></span>
         </div>
 
         <div class="nav-tab" onclick="window.location.href='curtain.html'">
-            Person
+            People
             <span class="dot"></span>
         </div>
 
-        <div class="nav-tab active">
+        <div class="nav-tab active" id="chapterTab">
             Chapter
             <span class="dot"></span>
         </div>
@@ -392,16 +561,126 @@ body {
 </div>
 
 <script>
-document.querySelectorAll('.chapter').forEach(chapter => {
+const volumeStrips = document.querySelectorAll('.volume-strip');
+const chapters = document.querySelectorAll('.chapter');
+
+function closeAllChapterSummaries(scope = document) {
+    scope.querySelectorAll('.chapter.open').forEach(ch => {
+        ch.classList.remove('open');
+    });
+}
+
+function closeOtherVolumes(currentVolume) {
+    volumeStrips.forEach(volume => {
+        if (volume !== currentVolume) {
+            volume.classList.remove('open');
+            closeAllChapterSummaries(volume);
+        }
+    });
+}
+
+volumeStrips.forEach(volume => {
+    volume.addEventListener('click', (e) => {
+        if (e.target.closest('.chapter')) return;
+
+        const isOpen = volume.classList.contains('open');
+
+        closeOtherVolumes(volume);
+
+        if (isOpen) {
+            volume.classList.remove('open');
+            closeAllChapterSummaries(volume);
+        } else {
+            volume.classList.add('open');
+        }
+    });
+});
+
+chapters.forEach(chapter => {
     chapter.addEventListener('click', (e) => {
         e.stopPropagation();
+
+        const parentVolume = chapter.closest('.volume-strip');
+        if (!parentVolume.classList.contains('open')) return;
+
         chapter.classList.toggle('open');
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const aboutTab = document.getElementById("aboutTab");
+    const aboutPanel = document.getElementById("aboutPanel");
+    const pageDim = document.getElementById("pageDim");
+    const closeAbout = document.getElementById("closeAbout");
+
+    function openAbout() {
+        aboutPanel.classList.add("show");
+        pageDim.classList.add("show");
+        document.body.classList.add("modal-open");
+        document.body.classList.add("about-open");
+        aboutTab.classList.add("active");
+    }
+
+    function closeAboutPanel() {
+        aboutPanel.classList.remove("show");
+        pageDim.classList.remove("show");
+        document.body.classList.remove("modal-open");
+        document.body.classList.remove("about-open");
+        aboutTab.classList.remove("active");
+    }
+
+    aboutTab.addEventListener("click", openAbout);
+    closeAbout.addEventListener("click", closeAboutPanel);
+    pageDim.addEventListener("click", closeAboutPanel);
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeAboutPanel();
+        }
+    });
+
+    /* -------- AUTO-LINK CHARACTER NAMES -------- */
+    const characterMap = [
+        { names: ["Lin Daiyu", "Daiyu"], href: "1-LinDaiyu.html" },
+        { names: ["Xue Baochai", "Baochai"], href: "2-XueBaochai.html" },
+        { names: ["Jia Yuanchun", "Yuanchun", "Imperial consort Yuan"], href: "3-JiaYuanchun.html" },
+        { names: ["Wang Xifeng", "Xifeng", "Lady Feng", "lady Feng"], href: "9-WangXifeng.html" },
+        { names: ["Shi Xiangyun", "Xiangyun"], href: "5-ShiXiangyun.html" },
+        { names: ["Xue Baoqin", "Baoqin"], href: "7-XueBaoqin.html" },
+        { names: ["Jia Xichun", "Xichun"], href: "8-JiaXichun.html" },
+        { names: ["Jia Tanchun", "Tanchun"], href: "4-JiaTanchun.html" },
+        { names: ["Liwan"], href: "11-Liwan.html" },
+        { names: ["Qin Keqing", "Keqing"], href: "10-QinKeqing.html" },
+        { names: ["QingWen", "Qingwen"], href: "12-QingWen.html" }
+    ];
+
+    function escapeRegExp(string) {
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function linkCharacterNames(element) {
+        let html = element.innerHTML;
+
+        characterMap.forEach(character => {
+            character.names
+                .sort((a, b) => b.length - a.length)
+                .forEach(name => {
+                    const regex = new RegExp(`\\b${escapeRegExp(name)}\\b`, "g");
+                    html = html.replace(
+                        regex,
+                        `<a class="character-link" href="${character.href}">${name}</a>`
+                    );
+                });
+        });
+
+        element.innerHTML = html;
+    }
+
+    document.querySelectorAll('.chapter-title, .chapter-summary').forEach(el => {
+        linkCharacterNames(el);
+    });
+});
 </script>
-
-
-
 
 </body>
 </html>

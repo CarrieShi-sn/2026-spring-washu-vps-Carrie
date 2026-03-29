@@ -5,69 +5,61 @@
 <title>Dream of the Red Chamber</title>
 
 <style>
+    :root {
+        --nav-width: 140px;
+        --nav-bg: rgba(168, 65, 205, 0.12);
+        --dim-bg: rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
     body {
         margin: 0;
         height: 100vh;
         overflow: hidden;
-        background-image: url(Lotus.jpg);
+        background-image: url("Lotus.jpg");
         background-size: cover;
         background-position: center;
         font-family: Georgia, serif;
-
-        display: flex; /* NAV LEFT + STAGE RIGHT */
-        flex-direction: row;
     }
 
-    /* ---------------- VERTICAL NAVIGATION BAR ---------------- */
-    .nav-band {
-        width: 18vh;             /* narrow vertical bar */
-        min-width: 120px;
-        height: 100vh;
+    body.modal-open {
+        overflow: hidden;
+    }
 
-        background: rgba(168, 65, 205, 0.12);
+    /* ---------------- NAV ---------------- */
+    .nav-band {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 50;
+        width: 18vh;
+        height: 100vh;
+        padding-top: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        background: var(--nav-bg);
         backdrop-filter: blur(4px);
         border-right: 1px solid rgba(255,255,255,0.25);
-
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        padding-top: 40px;
     }
 
     .nav-container {
         display: flex;
-        flex-direction: column;  /* vertical stack */
+        flex-direction: column;
         gap: 20px;
     }
 
     .nav-tab {
+        position: relative;
+        padding: 1px;
         font-size: 20px;
         color: white;
         letter-spacing: 2px;
         cursor: pointer;
-        text-orientation: upright;
-        top: 10%;
-        padding: 1px;
-
         transition: opacity 0.3s ease, transform 0.2s ease;
-        position: relative;
-    }
-
-    .nav-tab .dot {
-        width: 6px;
-        height: 6px;
-        background: white;
-        border-radius: 50%;
-        position: absolute; /* sit next to the tab */
-        top: 50%;
-        right: 47%;
-        transform: translateY(-50%);
-        opacity: 0;     /* hidden by default */
-        transition: opacity 0.3s ease;
-    }
-
-    .nav-tab.active .dot {
-        opacity: 1;
     }
 
     .nav-tab:hover {
@@ -75,27 +67,56 @@
         transform: translateX(4px);
     }
 
+    .nav-tab .dot {
+        position: absolute;
+        top: 50%;
+        right: 40%;
+        transform: translateY(-50%);
+        width: 6px;
+        height: 6px;
+        background: white;
+        border-radius: 50%;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .nav-tab.active .dot,
+    .about-trigger.active .dot {
+        opacity: 1;
+    }
+
+    body.modal-open .person-tab .dot {
+        opacity: 0 !important;
+    }
+
     /* ---------------- STAGE ---------------- */
     .stage {
+        position: relative;
         display: flex;
         height: 100vh;
-        width: calc(100vw - 18vh); /* space next to vertical nav */
-        position: relative;
+        width: calc(100vw - var(--nav-width));
+        margin-left: var(--nav-width);
+        overflow: hidden;
     }
 
     .curtain-left,
     .curtain-right {
         flex: 1;
-        transition: transform 1s ease-in-out, filter 0.6s ease;
-        cursor: pointer;
-
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 10px;
         color: white;
         font-size: 14px;
         text-align: center;
-        padding: 10px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition:
+            transform 1s ease-in-out,
+            filter 0.6s ease,
+            background-color 0.6s ease,
+            color 0.6s ease;
     }
 
     .curtain-left {
@@ -112,23 +133,35 @@
         margin-left: -25px;
     }
 
-    .curtain-left:hover {
-        transform: translateX(20px) translateZ(100px) scaleX(1.05);
-        background-color: rgba(97, 112, 125, 0.2);
-        z-index: 20;
-        filter: brightness(0.2);
-        background-image: url(flower.gif);
+    /* ---------------- FLOWER OVERLAY ---------------- */
+    .curtain-left::before,
+    .curtain-right::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image: var(--hover-flower);
         background-size: cover;
         background-position: center;
-        transition: 1s ease-in-out;
+        background-repeat: no-repeat;
+        opacity: 0;
+        transition: opacity 0.6s ease;
+        z-index: 1;
+        pointer-events: none;
     }
 
-    .curtain-right:hover {
-        transform: translateX(20px) translateZ(100px) scaleX(1.05);
-        z-index: 20;
-        filter: brightness(1.2);
-    }
-
+    /* per-curtain placeholders */
+    .curtain-1  { --hover-flower: url("flower-1.gif"); }
+    .curtain-2  { --hover-flower: url("flower-2.gif"); }
+    .curtain-3  { --hover-flower: url("flower-3.gif"); }
+    .curtain-4  { --hover-flower: url("flower-4.gif"); }
+    .curtain-5  { --hover-flower: url("flower-5.gif"); }
+    .curtain-6  { --hover-flower: url("flower-6.gif"); }
+    .curtain-7  { --hover-flower: url("flower-7.gif"); }
+    .curtain-8  { --hover-flower: url("flower-8.gif"); }
+    .curtain-9  { --hover-flower: url("flower-9.gif"); }
+    .curtain-10 { --hover-flower: url("flower-10.gif"); }
+    .curtain-11 { --hover-flower: url("flower-11.gif"); }
+    .curtain-12 { --hover-flower: url("flower-12.gif"); }
 
     .name {
         display: flex;
@@ -136,6 +169,8 @@
         align-items: center;
         gap: 12px;
         text-shadow: 0 0 25px rgba(89, 42, 42, 0.6);
+        position: relative;
+        z-index: 2;
     }
 
     .english {
@@ -149,146 +184,331 @@
         text-orientation: upright;
         font-size: 25px;
         letter-spacing: 6px;
-        font-family: Libian SC;
+        font-family: "Libian SC", serif;
+    }
+
+    /* ---------------- DIRECT HOVER ONLY ---------------- */
+    .curtain-left:hover,
+    .curtain-right:hover {
+        transform: translateX(20px) translateZ(100px) scaleX(1.05);
+        z-index: 30;
+    }
+
+    .curtain-left:hover::before,
+    .curtain-right:hover::before {
+        opacity: 1;
+    }
+
+    .curtain-left:hover {
+        filter: brightness(0.2);
+        background-color: rgba(97, 112, 125, 0.2);
+    }
+
+    .curtain-right:hover {
+        filter: brightness(1.1);
+        color: white;
+    }
+
+    /* ---------------- COUNTERPART: COLOR CHANGE ONLY ---------------- */
+    /* left counterparts when right curtain is hovered */
+    .stage:has(> .curtain-12:hover) > .curtain-1,
+    .stage:has(> .curtain-11:hover) > .curtain-2,
+    .stage:has(> .curtain-10:hover) > .curtain-3,
+    .stage:has(> .curtain-9:hover) > .curtain-4,
+    .stage:has(> .curtain-8:hover) > .curtain-5,
+    .stage:has(> .curtain-7:hover) > .curtain-6 {
+        filter: brightness(0.2);
+        background-color: rgba(97, 112, 125, 0.2);
+    }
+
+    .stage:has(> .curtain-12:hover) > .curtain-1::before,
+    .stage:has(> .curtain-11:hover) > .curtain-2::before,
+    .stage:has(> .curtain-10:hover) > .curtain-3::before,
+    .stage:has(> .curtain-9:hover) > .curtain-4::before,
+    .stage:has(> .curtain-8:hover) > .curtain-5::before,
+    .stage:has(> .curtain-7:hover) > .curtain-6::before {
+        opacity: 1;
+    }
+
+    /* right counterparts when left curtain is hovered */
+    .stage:has(> .curtain-1:hover) > .curtain-12,
+    .stage:has(> .curtain-2:hover) > .curtain-11,
+    .stage:has(> .curtain-3:hover) > .curtain-10,
+    .stage:has(> .curtain-4:hover) > .curtain-9,
+    .stage:has(> .curtain-5:hover) > .curtain-8,
+    .stage:has(> .curtain-6:hover) > .curtain-7 {
+        filter: brightness(1.2);
+        color: white;
+    }
+
+    .stage:has(> .curtain-1:hover) > .curtain-12::before,
+    .stage:has(> .curtain-2:hover) > .curtain-11::before,
+    .stage:has(> .curtain-3:hover) > .curtain-10::before,
+    .stage:has(> .curtain-4:hover) > .curtain-9::before,
+    .stage:has(> .curtain-5:hover) > .curtain-8::before,
+    .stage:has(> .curtain-6:hover) > .curtain-7::before {
+        opacity: 1;
+    }
+
+    /* ---------------- ABOUT MODAL ---------------- */
+    .page-dim {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        background: var(--dim-bg);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.45s ease;
+    }
+
+    .page-dim.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .about-panel {
+        position: fixed;
+        top: -100vh;
+        left: calc(var(--nav-width) + (100vw - var(--nav-width) - 80%) / 2);
+        z-index: 70;
+        width: 80%;
+        height: 80vh;
+        padding: 40px;
+        color: white;
+        backdrop-filter: blur(2px);
+        background:
+            repeating-linear-gradient(
+                to bottom,
+                rgba(0,0,0,0.22) 2px,
+                rgba(0,0,0,0.22) 1px,
+                rgba(225, 30, 30, 0.1) 4px,
+                rgba(208, 208, 227, 0.1) 8px
+            ),
+            rgba(175, 221, 218, 0.55);
+        transition: top 0.8s ease;
+    }
+
+    .about-panel.show {
+        top: 10vh;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        right: 25px;
+        font-size: 28px;
+        color: white;
+        cursor: pointer;
+        transition: opacity 0.3s ease;
+    }
+
+    .close-btn:hover {
+        opacity: 0.6;
+    }
+
+    @media (max-width: 700px) {
+        :root {
+            --nav-width: 100px;
+        }
+
+        .about-panel {
+            width: 80%;
+            height: 80%;
+            left: calc(var(--nav-width) + (100vw - var(--nav-width) - 80%) / 2);
+            padding: 25px;
+        }
+
+        .close-btn {
+            font-size: 24px;
+            right: 18px;
+        }
+
+        .about-panel p {
+            font-size: 14px;
+            font-family: Pantasia, serif;
+        }
     }
 </style>
 </head>
 
 <body>
 
-<!-- HORIZONTAL NAVIGATION -->
+<div class="page-dim" id="pageDim"></div>
+
+<div class="about-panel" id="aboutPanel">
+    <div class="close-btn" id="closeAbout">×</div>
+
+    <h1 style="font-size: 32px; letter-spacing: 2px; margin-bottom: 20px;">
+        Dream of the Red Chamber
+    </h1>
+
+    <p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+        Title: Chinese architecture provides for the mass of the population low, one-story buildings. A mansion with a second story is called lou —-
+        and Hung Lou stands for "Red Two-Story Building." According to Buddhist usage, it is also a metaphor for such concepts as worldly
+        glory, luxury, wealth, and honors — similar to the Buddhist interpretation of "red dust" as "worldly strivings," "the material world."
+    </p>
+
+    <p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+        Period: The text does not mention any particular date. However, there are implicit indications that the action takes place during the Ching
+        Dynasty (1644-1912). Official titles and ranks correspond to those of the last dynasty, and Manchuria could be referred to as a province
+        only since the Ching Dynasty. According to the findings of Dr. Hu Shih, the author Tsao Hsueh Chin wrote about contemporary events,
+        and his own experiences. Internal evidence indicates that the main narrative covers the period between 1729 and 1737.
+    </p>
+
+    <p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+        Place: The text speaks alternately of the capital and Chin ling. The capital under the Ching Dynasty was Peking. Chin ling, which means
+        "golden tombs," is probably an allusion to the well-known imperial burial places in the vicinity of Peking. The mountains outside the city
+        gates, where the Prince Hermit lives in seclusion, suggest the famous western mountains near Peking, with their splendid temples.
+    </p>
+</div>
+
 <div class="nav-band">
     <div class="nav-container">
-        <div class="nav-tab" data-page="book about" onclick="window.location.href='Book about.html'">
+        <div class="nav-tab" onclick="window.location.href='Book about.html'">
             <span class="label">Dream of the Red Chamber</span>
             <span class="dot"></span>
         </div>
 
-        <div class="nav-tab" data-page="about" onclick="window.location.href='About.html'">
+        <div class="nav-tab about-trigger" id="aboutTab">
             <span class="label">About</span>
             <span class="dot"></span>
         </div>
 
-        <div class="nav-tab" data-page="curtain" onclick="window.location.href='curtain.html'">
-        <span class="label">Person</span>
-        <span class="dot"></span>
-    </div>
+        <div class="nav-tab person-tab active" onclick="window.location.href='curtain.html'">
+            <span class="label">People</span>
+            <span class="dot"></span>
+        </div>
 
-        <div class="nav-tab" data-page="chapter-mode" onclick="window.location.href='Chapter.html'">
+        <div class="nav-tab" onclick="window.location.href='Chapter.html'">
             <span class="label">Chapter</span>
             <span class="dot"></span>
         </div>
     </div>
 </div>
 
-<!-- English Title Only -->
-<!-- <h1>Dream of the Red Chamber</h1> -->
-
-<!-- Curtains -->
 <div class="stage">
 
-    <!-- Left Side -->
-    <div class="curtain-left" onclick="window.location.href='1-LinDaiyu.html'">
+    <div class="curtain-left curtain-1" onclick="window.location.href='1-LinDaiyu.html'">
         <div class="name">
             <span class="english">Lin Daiyu</span>
             <span class="chinese">林黛玉</span>
         </div>
     </div>
 
-    <div class="curtain-left">
-        <div class="name">
-            <span class="english">Xue Baochai</span>
-            <span class="chinese">薛宝钗</span>
-        </div>
-    </div>
-
-    <div class="curtain-left">
+    <div class="curtain-left curtain-2" onclick="window.location.href='3-JiaYuanchun.html'">
         <div class="name">
             <span class="english">Jia Yuanchun</span>
             <span class="chinese">贾元春</span>
         </div>
     </div>
 
-    <div class="curtain-left">
-        <div class="name">
-            <span class="english">Jia Tanchun</span>
-            <span class="chinese">贾探春</span>
-        </div>
-    </div>
-
-    <div class="curtain-left">
+    <div class="curtain-left curtain-3" onclick="window.location.href='5-ShiXiangyun.html'">
         <div class="name">
             <span class="english">Shi Xiangyun</span>
             <span class="chinese">史湘云</span>
         </div>
     </div>
 
-    <div class="curtain-left">
+    <div class="curtain-left curtain-4" onclick="window.location.href='7-XueBaoqin.html'">
         <div class="name">
-            <span class="english">Miaoyu</span>
-            <span class="chinese">妙玉</span>
+            <span class="english">Xue Baoqin</span>
+            <span class="chinese">薛宝琴</span>
         </div>
     </div>
 
-    <!-- Right Side -->
-    <div class="curtain-right">
-        <div class="name">
-            <span class="english">Jia Yingchun</span>
-            <span class="chinese">贾迎春</span>
-        </div>
-    </div>
-
-    <div class="curtain-right">
-        <div class="name">
-            <span class="english">Jia Xichun</span>
-            <span class="chinese">贾惜春</span>
-        </div>
-    </div>
-
-    <div class="curtain-right">
+    <div class="curtain-left curtain-5" onclick="window.location.href='9-WangXifeng.html'">
         <div class="name">
             <span class="english">Wang Xifeng</span>
             <span class="chinese">王熙凤</span>
         </div>
     </div>
 
-    <div class="curtain-right">
-        <div class="name">
-            <span class="english">Qin Keqing</span>
-            <span class="chinese">秦可卿</span>
-        </div>
-    </div>
-
-    <div class="curtain-right">
+    <div class="curtain-left curtain-6" onclick="window.location.href='11-Liwan.html'">
         <div class="name">
             <span class="english">Li Wan</span>
             <span class="chinese">李纨</span>
         </div>
     </div>
 
-    <div class="curtain-right">
+    <div class="curtain-right curtain-7" onclick="window.location.href='12-QingWen.html'">
         <div class="name">
-            <span class="english">Jia Qiaojie</span>
-            <span class="chinese">贾巧姐</span>
+            <span class="english">Qing Wen</span>
+            <span class="chinese">晴雯</span>
+        </div>
+    </div>
+
+    <div class="curtain-right curtain-8" onclick="window.location.href='10-QinKeqing.html'">
+        <div class="name">
+            <span class="english">Qin Keqing</span>
+            <span class="chinese">秦可卿</span>
+        </div>
+    </div>
+
+    <div class="curtain-right curtain-9" onclick="window.location.href='8-JiaXichun.html'">
+        <div class="name">
+            <span class="english">Jia Xichun</span>
+            <span class="chinese">贾惜春</span>
+        </div>
+    </div>
+
+    <div class="curtain-right curtain-10" onclick="window.location.href='6-Miaoyu.html'">
+        <div class="name">
+            <span class="english">Miaoyu</span>
+            <span class="chinese">妙玉</span>
+        </div>
+    </div>
+
+    <div class="curtain-right curtain-11" onclick="window.location.href='4-JiaTanchun.html'">
+        <div class="name">
+            <span class="english">Jia Tanchun</span>
+            <span class="chinese">贾探春</span>
+        </div>
+    </div>
+
+    <div class="curtain-right curtain-12" onclick="window.location.href='2-XueBaochai.html'">
+        <div class="name">
+            <span class="english">Xue Baochai</span>
+            <span class="chinese">薛宝钗</span>
         </div>
     </div>
 
 </div>
 
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    const current = window.location.pathname.split("/").pop().replace(".html", "");
+    const aboutTriggers = document.querySelectorAll(".about-trigger");
+    const aboutPanel = document.getElementById("aboutPanel");
+    const pageDim = document.getElementById("pageDim");
+    const closeAbout = document.getElementById("closeAbout");
 
-    document.querySelectorAll(".nav-tab").forEach(tab => {
-        if (tab.dataset.page === current) {
-            tab.classList.add("active");
+    function openAbout() {
+        aboutPanel.classList.add("show");
+        pageDim.classList.add("show");
+        document.body.classList.add("modal-open");
+        aboutTriggers.forEach(trigger => trigger.classList.add("active"));
+    }
+
+    function closeAboutPanel() {
+        aboutPanel.classList.remove("show");
+        pageDim.classList.remove("show");
+        document.body.classList.remove("modal-open");
+        aboutTriggers.forEach(trigger => trigger.classList.remove("active"));
+    }
+
+    aboutTriggers.forEach(trigger => {
+        trigger.addEventListener("click", openAbout);
+    });
+
+    closeAbout.addEventListener("click", closeAboutPanel);
+    pageDim.addEventListener("click", closeAboutPanel);
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closeAboutPanel();
         }
     });
 });
 </script>
-
-
 
 </body>
 </html>

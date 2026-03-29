@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>About — Project</title>
+<title>Project Page</title>
 
 <style>
     body {
@@ -13,7 +13,6 @@
         background-size: cover;
         background-position: center;
         font-family: Georgia, serif;
-
         display: flex;
         flex-direction: row;
     }
@@ -32,7 +31,8 @@
         align-items: baseline;
         justify-content: center;
         padding-top: 40px;
-        z-index: 5;
+        z-index: 20;
+        position: relative;
     }
 
     .nav-container {
@@ -46,7 +46,6 @@
         color: white;
         letter-spacing: 2px;
         cursor: pointer;
-        text-orientation: upright;
         padding: 1px;
         position: relative;
         transition: opacity 0.3s ease, transform 0.2s ease;
@@ -74,20 +73,31 @@
         opacity: 1;
     }
 
+    /* ---------------- PAGE DIM OVERLAY ---------------- */
+    .page-dim {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.45);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.45s ease;
+        z-index: 30;
+    }
+
+    .page-dim.show {
+        opacity: 1;
+        pointer-events: auto;
+    }
 
     /* ---------------- ABOUT PANEL ---------------- */
     .about-panel {
-        position: absolute;
-
-        /* always 80% width and 80% height */
+        position: fixed;
         width: 80%;
         height: 80vh;
 
-        /* center horizontally & vertically */
         left: calc(18vh + (100vw - 18vh - 80%) / 2);
-        top: -100vh; /* hidden initially */
+        top: -100vh;
 
-        /* striped textile background */
         background:
             repeating-linear-gradient(
                 to bottom,
@@ -100,17 +110,16 @@
 
         backdrop-filter: blur(2px);
         color: white;
-
         padding: 40px;
+        box-sizing: border-box;
         transition: top 0.8s ease;
-        z-index: 4;
+        z-index: 40;
     }
 
     .about-panel.show {
-        top: calc((100vh - 90vh) / 2); /* perfect vertical centering */
+        top: 10vh;
     }
 
-    /* Close button */
     .close-btn {
         position: absolute;
         top: 15px;
@@ -125,10 +134,13 @@
         opacity: 0.6;
     }
 
+    /* optional: prevent clicking page content when modal is open */
+    body.modal-open {
+        overflow: hidden;
+    }
 
-    /* ---------------- MOBILE RESPONSIVE ---------------- */
+    /* ---------------- MOBILE ---------------- */
     @media (max-width: 700px) {
-
         .nav-band {
             width: 14vh;
             min-width: 85px;
@@ -146,10 +158,9 @@
             right: 18px;
         }
 
-
-        p{
+        .about-panel p {
             font-size: 14px;
-            font-family: Pantasia;;
+            font-family: Pantasia;
         }
     }
 </style>
@@ -165,13 +176,14 @@
             <span class="dot"></span>
         </div>
 
-        <div class="nav-tab" data-page="about">
+        <!-- About now opens modal instead of changing page -->
+        <div class="nav-tab" data-page="about" id="aboutTab">
             <span class="label">About</span>
             <span class="dot"></span>
         </div>
 
         <div class="nav-tab" data-page="curtain" onclick="window.location.href='curtain.html'">
-            <span class="label">Person</span>
+            <span class="label">People</span>
             <span class="dot"></span>
         </div>
 
@@ -182,42 +194,72 @@
     </div>
 </div>
 
+<!-- DIM BACKGROUND -->
+<div class="page-dim" id="pageDim"></div>
 
 <!-- ABOUT PANEL -->
 <div class="about-panel" id="aboutPanel">
+    <div class="close-btn" id="closeAbout">×</div>
 
-    <div class="close-btn" onclick="window.location.href='curtain.html'">×</div>
+    <h1 style="font-size: 32px; letter-spacing: 2px; margin-bottom: 20px;">
+        Dream of the Red Chamber
+    </h1>
 
-<h1 style="font-size: 32px; letter-spacing: 2px; margin-bottom: 20px;">
-    About This Project
-</h1>
+    <p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+        Title: Chinese architecture provides for the mass of the population low, one-story buildings. A mansion with a second story is called lou —-
+    and Hung Lou stands for "Red Two-Story Building." According to Buddhist usage, it is also a metaphor for such_concepts as worldly
+    glory, luxury, wealth, and honors — similar to the Buddhist interpretation of "red dust" as "worldly strivings," "the material world." 
+    </p>
 
-<p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
-    This site is an ongoing study—part visual archive, part digital interpretation.
-    Its goal is not to retell the novel, but to honor its atmosphere:
-    the quiet drift of curtains, the weight of unspoken feeling,
-    and the beauty of a world already beginning to fade.
-</p>
+    <p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+        Period: The text does not mention any particular date. However, there
+    are implicit indications that the action takes place during the Chinp
+    Dynasty (1644-1912). Official titles and ranks correspond to those o the last dynasty, and Manchuria could be referred to as a provinc
+    only since the Ching Dynasty. According to the findings of Dr. Hi
+    Shih, the author Tsao Hsueh Chin wrote about contemporary event,
+    and his own experiences. Internal evidence indicates that the mail
+    narrative covers the period between 1729_and 1737. 
+    </p>
 
-<p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
-    Thank you for stepping inside.
-</p>
-
+    <p style="line-height: 1.7; font-size: 16px; max-width: 80%; margin-top: 18px;">
+        Place: The text speaks alternately of the capital and Chin ling. Th<:
+    capital under the Ching Dynasty was Peking. Chin ling, which means
+    "golden tombs," is probably an allusion to the well-known imperial burial places in the vicinity of Peking. The mountains outside the city
+    gates, where the Prince Hermit lives in seclusion, suggest the famous
+    western mountains near Peking, with their splendid temples. 
+    </p>
+    </div>
 
 <script>
-/* Highlight the About tab */
 document.addEventListener("DOMContentLoaded", () => {
-    const current = "about";
-    document.querySelectorAll(".nav-tab").forEach(tab => {
-        if (tab.dataset.page === current) {
-            tab.classList.add("active");
+    const aboutTab = document.getElementById("aboutTab");
+    const aboutPanel = document.getElementById("aboutPanel");
+    const pageDim = document.getElementById("pageDim");
+    const closeAbout = document.getElementById("closeAbout");
+
+    function openAbout() {
+        aboutPanel.classList.add("show");
+        pageDim.classList.add("show");
+        aboutTab.classList.add("active");
+        document.body.classList.add("modal-open");
+    }
+
+    function closePanel() {
+        aboutPanel.classList.remove("show");
+        pageDim.classList.remove("show");
+        aboutTab.classList.remove("active");
+        document.body.classList.remove("modal-open");
+    }
+
+    aboutTab.addEventListener("click", openAbout);
+    closeAbout.addEventListener("click", closePanel);
+    pageDim.addEventListener("click", closePanel);
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+            closePanel();
         }
     });
-
-    /* Slide-down animation */
-    setTimeout(() => {
-        document.getElementById("aboutPanel").classList.add("show");
-    }, 50);
 });
 </script>
 
