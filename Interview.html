@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cindy on AI, Art, and Refusal</title>
+  <style>
+    :root {
+      --bg-deep: #48cabb;
+      --bg-mid: #0b3d3d;
+      --panel: rgba(10, 27, 27, 0.78);
+      --panel-2: rgba(173, 43, 43, 0.16);
+      --line: rgba(255, 255, 255, 0.28);
+      --text-main: #ffe3e3;
+      --text-soft: rgba(246, 238, 238, 0.74);
+      --red-main: #c30938;
+      --red-bright: #c5454b;
+      --teal-main: #2c6856;
+      --teal-bright: #7ae7c7;
+      --keyword: #7ae7c7;
+      --shadow: 0 18px 50px rgba(0, 0, 0, 0.30);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: New Order;
+      color: var(--text-main);
+      background: var(--bg-deep);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: var(--bg-deep);
+      pointer-events: none;
+      mix-blend-mode: screen;
+    }
+
+    .site-wrap {
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 38px 3.5vw 44px 3.5vw;
+      position: relative;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 0.92fr 1.28fr;
+      gap: 22px;
+      align-items: start;
+      max-width: 1500px;
+      margin: 0 auto;
+    }
+
+    .glass-card {
+      background: var(--bg-deep);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .portrait-card {
+      min-height: 86vh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      position: sticky;
+      top: 24px;
+    }
+
+    .portrait-header {
+      padding: 20px 22px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg-deep);
+    }
+
+    .small-mark {
+      letter-spacing: 5px;
+      font-size: 15px;
+      color: var(--teal-bright);
+      margin: 0;
+    }
+
+    .image-holder {
+      margin: 22px;
+      border: 1px solid rgba(143, 212, 205, 0.34);
+      min-height: 48vh;
+      background: var(--bg-deep);
+      position: relative;
+    }
+
+    .image-holder::before,
+    .image-holder::after {
+      content: "";
+      position: absolute;
+      background: var(--bg-deep);
+    }
+
+     .image-label {
+      width: 50vh;
+      height: 50vh;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      background: url('cindy pfp.jpg') center/cover no-repeat;
+      border: 4px solid rgb(208, 255, 250);
+      display: block;
+      text-indent: -9999px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .image-holder::before {
+      width: 36px;
+      height: 1px;
+      top: 12px;
+      left: 12px;
+    }
+
+    .image-holder::after {
+      width: 1px;
+      height: 36px;
+      top: 12px;
+      left: 12px;
+    }
+
+    .portrait-copy {
+      padding: 0 22px 24px 22px;
+    }
+
+    .hero-title {
+      font-size: clamp(30px, 4vw, 60px);
+      line-height: 0.94;
+      margin: 0 0 16px 0;
+      letter-spacing: 0.6px;
+      max-width: 8ch;
+      text-shadow: 0 0 24px rgba(0,0,0,0.3);
+    }
+
+    .subtitle {
+      max-width: 34ch;
+      color: var(--text-soft);
+      font-size: 15px;
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .interview-shell {
+      padding: 18px;
+    }
+
+    .top-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .top-tab {
+      appearance: none;
+      border: 1px solid #7ae7c7;
+      background: #ffffff;
+      color: #45abc5;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+    }
+
+    .top-tab:hover {
+      border-color: #c30938;
+      transform: translateY(-1px);
+    }
+
+    .intro-card {
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      background: #0f2f2b;
+      border: 1px solid #7ae7c7;
+    }
+
+    .intro-card h2 {
+      margin: 0 0 10px 0;
+      font-weight: normal;
+      font-size: 28px;
+      letter-spacing: 0.4px;
+    }
+
+    .intro-card p {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-soft);
+      max-width: 72ch;
+    }
+
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    details.qa {
+        border-radius: 4px;
+      border: 1px solid #7ae7c7;
+      overflow: hidden;
+      background: #171717;
+      transition: transform 0.28s ease, border-color 0.28s ease;
+    }
+
+    details.qa:hover {
+        border-radius: 4px;
+      transform: translateX(4px);
+      border-color: rgba(143, 212, 205, 0.42);
+    }
+
+    details.qa[open] {
+      border-color: #f47f9c;
+      background: #cd3a3a;
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    .question-number {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--teal-bright);
+      min-width: 54px;
+      flex-shrink: 0;
+    }
+
+    .question-text {
+      flex: 1;
+      font-size: 19px;
+      line-height: 1.45;
+      color: white;
+      padding-right: 14px;
+    }
+
+    .plus {
+      width: 32px;
+      height: 32px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(143, 212, 205, 0.24);
+      color: var(--teal-bright);
+      font-size: 22px;
+      line-height: 1;
+      transition: transform 0.28s ease, background 0.28s ease, color 0.28s ease;
+      background: var(--bg-deep);
+      flex-shrink: 0;
+    }
+
+    details[open] .plus {
+      transform: rotate(45deg);
+      background: var(--bg-deep);
+      color: #ffd8d8;
+    }
+
+    .answer {
+      padding: 0 22px 22px 76px;
+      color: rgba(246, 238, 238, 0.84);
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .answer p {
+      margin: 0 0 16px 0;
+    }
+
+    .answer p:last-child { margin-bottom: 0; }
+
+    .keyword {
+      color: var(--keyword);
+    }
+
+    .footer-note {
+      padding: 24px 4px 4px 4px;
+      color: rgba(246, 238, 238, 0.50);
+      font-size: 13px;
+      letter-spacing: 0.3px;
+    }
+
+    @media (max-width: 1100px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait-card {
+        min-height: auto;
+        position: relative;
+        top: auto;
+      }
+
+      .image-holder {
+        min-height: 40vh;
+      }
+
+      .hero-title {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        padding: 18px 14px 24px 14px;
+      }
+
+      .interview-shell,
+      .portrait-copy,
+      .portrait-header,
+      .intro-card {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .image-holder {
+        margin: 16px;
+      }
+
+      summary {
+        padding: 16px;
+        gap: 12px;
+      }
+
+      .question-number {
+        min-width: 42px;
+        font-size: 11px;
+      }
+
+      .question-text {
+        font-size: 16px;
+      }
+
+      .answer {
+        padding: 0 16px 18px 16px;
+        font-size: 14px;
+      }
+
+      .plus {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body>
+  
+
+  <main class="site-wrap" id="top">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="left-panel">
+          <div class="glass-card portrait-card">
+            <div class="portrait-image"></div>
+            <div class="portrait-overlay"></div>
+            <div class="portrait-header">
+              <p class="small-mark">NTERVIEW</p>
+            </div>
+            <div class="image-holder">
+              <div class="image-label">Cindy profile image</div>
+            </div>
+            <div class="portrait-copy">
+              <h1 class="hero-title">Cindy on AI, Art, and Refusal</h1>
+              <p class="subtitle">
+                A freshman at CalArts, an illustrator doing anime-centered commissions, and someone living between experimental art and commercial polish.
+                This page stages that tension as a series of unfolding questions.
+              </p>
+            </div>
+            <div class="intro-card">
+              <h2>Split practice, shared anxiety</h2>
+              <p>
+                This interview moves through artistic labor, client culture, gaming aesthetics, protest, and survival. Each question drops down individually, so the page feels closer to a staged archive than a flat transcript.
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="right-panel" id="interview">
+          <div class="glass-card interview-shell">
+            <div class="top-tabs">
+              <button class="top-tab" onclick="document.getElementById('top').scrollIntoView({behavior:'smooth'})">About</button>
+              <button class="top-tab" onclick="document.getElementById('interview').scrollIntoView({behavior:'smooth'})">Interview</button>
+              <button class="top-tab" onclick="toggleAll(true)">Open All</button>
+              <button class="top-tab" onclick="toggleAll(false)">Close All</button>
+            </div>
+            <div class="intro-card">
+              <h2>Split practice, shared anxiety</h2>
+              <p>
+                This interview moves through artistic labor, client culture, gaming aesthetics, protest, and survival. Each question drops down individually, so the page feels closer to a staged archive than a flat transcript.
+              </p>
+            </div>
+
+            <div class="accordion">
+              <details class="qa" open>
+                <summary>
+                  <span class="question-number">Q01</span>
+                  <span class="question-text">As a freshman at CalArts and someone doing illustration commissions, how would you describe your current relationship to art-making?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>For me, it feels like a kind of <span class="keyword">split personality</span> in my art practice.</p>
+                  <p>When I’m doing <span class="keyword">CalArts work</span>, I’m more interested in “doing art” in the sense of making something <span class="keyword">abstract</span>, <span class="keyword">experimental</span>, or conceptually loose. But when I’m working on commissions, my style becomes much more <span class="keyword">commercial</span> and more <span class="keyword">refined</span>.</p>
+                  <p>Since most of my commission work is for otaku audiences—people who really love Japanese anime—the visual language is completely different from what I make at school. Sometimes when my classmates see that work, they’re genuinely shocked that I drew it.</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q02</span>
+                  <span class="question-text">In the illustration field, AI is often completely banned. Why is that boundary so strict?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>It’s very simple: at least in the art field, <span class="keyword">AI and artists are in a zero-sum game</span>. If AI becomes powerful enough, artists will inevitably lose their jobs. I don’t think there’s any middle ground right now.</p>
+                  <p>People like to say AI is just a tool that helps artists make rough sketches or generate inspiration. But the reality is that with only a few keywords, AI can already produce a <span class="keyword">complete, hyper-detailed image</span> almost instantly. Some systems can even mimic the work of master artists extremely well.</p>
+                  <p>So then what is the human doing in that process? Just typing?</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q03</span>
+                  <span class="question-text">Is that ban really about artistic integrity, or is it more about protecting artists’ labor and income?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>All I can say is that this rule feels like an <span class="keyword">unspoken pact</span> among artists.</p>
+                  <p>On the surface, people talk about integrity. But underneath that, it’s really a shared consensus among creators: we cannot let an alien species take over all of our niches.</p>
+                  <p>It’s basically the same thing. AI is like an <span class="keyword">invasive species</span> with no natural predators. It has completely disrupted the ecosystem of artists. So artists have no choice but to try to forcibly keep this Pandora’s box sealed, preventing it from being fully opened.</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q04</span>
+                  <span class="question-text">When clients commission you, are they paying for the image itself, or for the fact that you created it?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>I think the people willing to pay for my work are people with refined aesthetic taste—lol.</p>
+                  <p>In our circle, AI is strongly opposed, so anyone who uses it—artist or client—will be disliked just as much. The <span class="keyword">social cost</span> of using AI is very high.</p>
+                  <p>I also think commissioning art is not that different from buying luxury goods. Both are driven by vanity, by the desire to show off, to prove you have money and good taste. Using AI in that context is like carrying a <span class="keyword">fake Louis Vuitton bag</span>. People will absolutely look down on you for it.</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q05</span>
+                  <span class="question-text">The game industry seems more tolerant of AI. Why do you think the rules loosen there?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>I think it’s because a lot of gamers don’t care that much about graphics, especially in games like League of Legends where gameplay matters more.</p>
+                  <p>But even then, AI is still a huge sticking point in games that depend heavily on visuals. A lot of well-known Chinese game companies I know of, like NetEase and Tencent, have already been criticized by players over suspected AI-related incidents.</p>
+                  <p>Games that rely on selling <span class="keyword">characters and skins</span> will face a <span class="keyword">full-scale player boycott</span> the moment they openly use AI, and that reaction becomes even stronger in communities that care deeply about visual design.</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q06</span>
+                  <span class="question-text">Do you see this as a double standard between independent artists and large studios?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>Not really. I don’t think the issue is whether it’s an individual or a studio. What matters more is how closely that industry is tied to art itself.</p>
+                  <p>The stronger that connection is, the more likely AI use will backfire. Even if certain game or art companies start using AI in the future, they’ll have to do it discreetly. They absolutely <span class="keyword">cannot let players find out</span>.</p>
+                  <p>If it’s too obvious, they’ll get slammed. That part is certain.</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q07</span>
+                  <span class="question-text">If studios use AI to generate or speed up work, does that change how you value the final product—or your own future in that field?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>Honestly, I don’t really dare to think about it too much. Hahaha.</p>
+                  <p>I don’t think AI can completely replace humans, but what about <span class="keyword">70%</span>? That feels very possible. Maybe only the top 30% of the most talented or influential artists will remain, while the rest—the ones whose work can be fully substituted by AI—will really be affected.</p>
+                  <p>And who can guarantee they won’t be among that 70%?</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q08</span>
+                  <span class="question-text">When you heard CalArts was introducing an AI course, what was your immediate reaction?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>To be honest, while I completely understand why so many people at our school are resisting the course, I still think taking an AI course is essential.</p>
+                  <p>Bluntly speaking, people who know nothing about AI will eventually be left behind by the times. There’s an old saying: know yourself and know your enemy, and you will never be defeated in a hundred battles. I think that applies now too.</p>
+                  <p>Only by actually understanding what AI is can you identify your own <span class="keyword">irreplaceable value</span> in this era—things like <span class="keyword">creativity</span> or a <span class="keyword">unique style</span>. At least for now, I still believe AI cannot create its own real artistic style.</p>
+                  <p>That said, I’m not a fan of AI myself, because I honestly think <span class="keyword">AI-generated images</span> are ugly. No matter how detailed they are, using that kind of trash to fob the audience off feels disrespectful.</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q09</span>
+                  <span class="question-text">Why protest the course instead of engaging with it? What does that say about how urgent this issue feels?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>That goes without saying. CalArts is probably one of the few schools in the U.S. with such a strong artistic atmosphere and such a high degree of freedom.</p>
+                  <p>I think the students’ resistance comes from the fear that if <span class="keyword">CalArts</span>—a pioneer and a role model in the arts—starts openly offering <span class="keyword">AI courses</span>, then maybe that means the whole industry has really gone to the dogs.</p>
+                  <p>A lot of the anger is directed at the school itself: for damaging its own reputation, and for behaving irresponsibly.</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q10</span>
+                  <span class="question-text">Do you think the school presents AI as a neutral tool, without fully addressing its ethical implications?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>To be honest, I’m not entirely sure, because I never actually took the class.</p>
+                  <p>So I can’t say for certain how the school frames it. But from the intensity of the reaction, I think a lot of students are worried that the institutional framing itself already normalizes AI too much, especially at a school with symbolic weight like CalArts.</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q11</span>
+                  <span class="question-text">As someone navigating both commissions and industry expectations, do you feel caught between a system that bans AI and one that increasingly depends on it?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>My current situation isn’t really that contradictory. Both my school environment and the commission community I’m in hate AI.</p>
+                  <p>But that doesn’t mean I haven’t been affected by it. Unfortunately, most people in society who don’t care about art also don’t care whether the posters, ads, or images they see on the street were generated by AI.</p>
+                  <p>This is extremely widespread in China. Every time I ride the subway or just walk outside, my eyes are bombarded with <span class="keyword">AI-generated imagery</span> that I find absolutely hideous—and that’s what makes me feel most hopeless.</p>
+                  <p>I’ve realized that no matter how much people with good taste resist AI, it still ends up everywhere, filling every street and alley.</p>
+                </div>
+              </details>
+
+              <details class="qa">
+                <summary>
+                  <span class="question-number">Q12</span>
+                  <span class="question-text">Looking ahead, do you see yourself working with AI, resisting it, or constantly negotiating between the two?</span>
+                  <span class="plus">+</span>
+                </summary>
+                <div class="answer">
+                  <p>Like I said, the main reason I hate AI is that I see it as a form of <span class="keyword">cheating</span>—a way of <span class="keyword">cutting corners</span>. It deceives the client’s eyes, and it feels like a dereliction of duty toward oneself.</p>
+                  <p>Every time I see some company using AI-generated images and plastering them all over the internet or across billboards, I just want to ask: do you take me for a fool? You’re trying to fool me with this trash that takes only a few seconds to generate, and you still expect to make money off me?</p>
+                  <p>Of course, I can’t guarantee I’ll never use AI in the future. Humans have always had to deal with things they hate in order to survive. It’s been that way since the dawn of time.</p>
+                </div>
+              </details>
+            </div>
+
+            <div class="footer-note">Designed referring to Cindy's work's aesthetics</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function toggleAll(open) {
+      document.querySelectorAll('details.qa').forEach(item => item.open = open);
+    }
+  </script>
+</body>
+</html>
