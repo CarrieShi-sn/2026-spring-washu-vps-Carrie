@@ -8,12 +8,28 @@
     <link rel="icon" type="image/jpg" href="logo_pink.jpg">
     
     <style>
-        body{
-        background-image: url("personal-website-photo.png");
-        background-size: cover;      /* fills the area */
-        background-blend-mode: color-burn;
-        background-color: rgba(0, 0, 0, 0.5); /* fallback color */
-        background-attachment: fixed;
+        body {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        body::before{
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+
+        background: rgba(0, 0, 0, 0.5); /* your tone */
+        mix-blend-mode: color-burn;
+
+        z-index: 0;
+    }
+
+        body > *{
+            position: relative;
+            z-index: 1;
         }
 
         .container {
@@ -133,6 +149,7 @@
         <a href="profile-card.html">Profile Card</a>
         <br><br>
         <a href="writing1.html">Writing Exercises</a>
+        <a href="Interview.html">Interview</a>
     </div>
 
     <div class="Readings">
@@ -155,6 +172,26 @@
 </div>
 
 </div>
+
+<script>
+    const images = [
+        "images/1.jpeg",
+        "images/2.jpg",
+        "images/3.jpg",
+        "images/4.jpeg",
+        "images/5.jpeg",
+        "images/6.png",
+        "images/7.png",
+        "images/8.PNG",
+        "images/9.PNG" // you can keep your original too
+    ];
+
+    // pick random image
+    const randomImage = images[Math.floor(Math.random() * images.length)];
+
+    // apply to body
+    document.body.style.backgroundImage = `url('${randomImage}')`;
+</script>
 
 </body>
 </html>
